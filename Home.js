@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, ImageBackground, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import API_KEY from './API_KEY'
 
@@ -7,7 +7,7 @@ export default class Home extends Component {
   constructor(props) {
   super(props)
     this.state = {
-      position: 'unknown'
+      position: null
     };
   }
 
@@ -23,27 +23,29 @@ export default class Home extends Component {
   }
 
   fetchData() {
-    var lat = this.state.position.coords.latitude;
-    var lng = this.state.position.coords.longitude;
-    
-    const config = {
-      headers: {
-        'Authorization': `Bearer ${API_KEY}`
-      },
-      params: {
-        term: 'boba',
-        location: String(lat) + ',' + String(lng)
+    if (this.state.position) {
+      var lat = this.state.position.coords.latitude;
+      var lng = this.state.position.coords.longitude;
+      
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${API_KEY}`
+        },
+        params: {
+          term: 'boba',
+          location: String(lat) + ',' + String(lng)
+        }
       }
+  
+      axios.get('https://api.yelp.com/v3/businesses/search', config)
+      .then((response) => {
+        this.props.navigation.push(
+          'ResultsList',
+          {response: response}
+        )
+      })
+      .catch(error => console.log(error));
     }
-
-    axios.get('https://api.yelp.com/v3/businesses/search', config)
-    .then((response) => {
-      this.props.navigation.push(
-        'Results',
-        {response: response}
-      )
-    })
-    .catch(error => console.log(error));
   }
     
   render() {
@@ -53,7 +55,7 @@ export default class Home extends Component {
         source={require('./boba.png')}
       >
         <View style={styles.container}>
-          <Text style={styles.title}>Boba Buddy</Text>
+          <Text style={styles.title}>BOBA BUDDY</Text>
           <TouchableOpacity
             style={styles.button}
             onPress={this.fetchData.bind(this)}
@@ -76,18 +78,20 @@ const styles = StyleSheet.create({
   title: {
     position: 'absolute',
     top: '45%',
-    fontSize: 55,
+    fontSize: 50,
+    fontWeight: "700",
+    letterSpacing: 2, 
     color: 'white',
-    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: {width: -1, height: 1},
-    textShadowRadius: 10,
+    textShadowRadius: 5,
     textAlign: 'center',
     margin: 10,
   },
 
   button: {
     position: 'absolute',
-    top: '65%',
+    top: '60.5%',
     borderRadius: 7,
     padding: 10,
     backgroundColor: 'rgb(37, 160, 205)',
