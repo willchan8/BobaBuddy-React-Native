@@ -5,7 +5,7 @@ import API_KEY from './API_KEY'
 
 export default class Home extends Component {
   // static navigationOptions = ({ navigation }) => ({
-  //   header: null
+  //   header: Home
   // })
   constructor(props) {
   super(props)
@@ -26,8 +26,10 @@ export default class Home extends Component {
   }
 
   fetchData() {
-    var lat = this.state.position.coords.latitude;
-    var lng = this.state.position.coords.longitude;
+    // var lat = this.state.position.coords.latitude;
+    // var lng = this.state.position.coords.longitude;
+    var lat = 37.517520;
+    var lng = -121.950640;
     
     const config = {
       headers: {
@@ -56,7 +58,6 @@ export default class Home extends Component {
         <TouchableOpacity
           style={{borderRadius: 7,padding: 10,  backgroundColor: 'rgb(37, 160, 205)'}}
           onPress={this.fetchData.bind(this)}
-          // onPress={() => this.props.navigation.push('Hello')}
         >
           <Text style={{fontSize: 15}}>Find Boba!</Text>
         </TouchableOpacity>

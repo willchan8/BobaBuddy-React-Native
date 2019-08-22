@@ -13,21 +13,22 @@ class Results extends Component {
     console.log(this.state.results);
     return (
       <View>
-        <Text style= {styles.header}>Results</Text>
+        <Text style={styles.header}>Results</Text>
         <FlatList
-          style={{marginTop: 100}}
-          initialListSize={10}
+          style={{marginTop: 80}}
+          initialNumToRender={10}
           data={this.state.results}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
             <View>
-              <TouchableOpacity style={styles.resultRow} onPress={() => Linking.openURL(result.url)}>
-                <Image source={{uri: item.image_url}}
-                style={{width: 80, height: 80, justifyContent: 'flex-start'}} />
-                <View style={{flexDirection: 'column', justifyContent: 'center'}}>
-                  <Text style={{fontWeight: 'bold'}}>{`${item.name}`}</Text>
-                  <Text>Rating: {`${item.rating}`}</Text>
-                  <Text>Address: {`${item.location.address1}`}</Text>
+              <TouchableOpacity style={styles.resultRow} onPress={() => Linking.openURL(item.url)}>
+                <Image source={{uri: item.image_url}} style={{width: 90, height: 90}} 
+                />
+                <View style={styles.resultDesc}>  
+                  <Text style={{fontWeight: 'bold', fontSize: 20}}>{item.name}</Text>
+                  <Text>Rating: {item.rating} / 5 </Text>
+                  <Text>{item.location.display_address[0]}</Text>
+                  <Text>{`${item.location.city}, ${item.location.state} ${item.location.zip_code}`}</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -48,10 +49,13 @@ const styles = StyleSheet.create({
  
   resultRow: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'flex-start',
-    marginBottom: 20,
-    padding: 5,
+    padding: 10,
+  },
+
+  resultDesc: {
+    paddingLeft: 20,
+    flexDirection: 'column',
+    justifyContent: 'space-between'
   }
 });
  

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Home from './Home';
 import Hello from './Hello';
@@ -13,21 +13,37 @@ export default class App extends Component {
   }
 }
 
+const NavigationConfig = () => {
+  return {
+    transitionSpec: {
+      duration: 50,
+      // easing: Easing.out(Easing.poly(4)),
+      // timing: Animated.timing,
+      // useNativeDriver: true,
+    },
+    // screenInterpolator: sceneProps => {      
+    //   const { layout, position, scene } = sceneProps
+
+    //   const thisSceneIndex = scene.index
+    //   const width = layout.initWidth
+
+    //   const translateX = position.interpolate({
+    //     inputRange: [thisSceneIndex - 1, thisSceneIndex],
+    //     outputRange: [width, 0],
+    //   })
+
+    //   return { transform: [ { translateX } ] }
+    // },
+  }
+}
+
 const AppStackNavigator = createStackNavigator({
   Home,
   Results,
   Hello,
 }, {
-  initialRouteName: 'Home'  
+  initialRouteName: 'Home',
+  // transitionConfig: NavigationConfig
 })
 
 const AppContainer = createAppContainer(AppStackNavigator);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-});
