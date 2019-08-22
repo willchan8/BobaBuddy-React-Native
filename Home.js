@@ -5,10 +5,10 @@ import API_KEY from './API_KEY'
 
 export default class Home extends Component {
   constructor(props) {
-  super(props)
-    this.state = {
-      position: null
-    };
+    super(props)
+      this.state = {
+        position: null
+      };
   }
 
   componentDidMount() {
@@ -24,8 +24,9 @@ export default class Home extends Component {
 
   fetchData() {
     if (this.state.position) {
-      var lat = this.state.position.coords.latitude;
-      var lng = this.state.position.coords.longitude;
+      let lat = this.state.position.coords.latitude;
+      let lng = this.state.position.coords.longitude;
+      let location = String(lat) + ',' + String(lng);
       
       const config = {
         headers: {
@@ -33,7 +34,7 @@ export default class Home extends Component {
         },
         params: {
           term: 'boba',
-          location: String(lat) + ',' + String(lng)
+          location: location,
         }
       }
   

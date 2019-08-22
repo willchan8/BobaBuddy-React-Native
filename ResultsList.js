@@ -1,25 +1,51 @@
 import React, { Component } from 'react'; 
 import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { SearchBar } from 'react-native-elements';
 import Result from './Result'; 
 
 class ResultsList extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      results: this.props.navigation.getParam('response').data.businesses
+      results: this.props.navigation.getParam('response').data.businesses,
+      searchText: ''
     }
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  handleSearch(text) {
+    this.setState({
+      searchText: text,
+    });
   }
  
   render() {
-    console.log(this.state.results);
+    const {results, searchText} = this.state;
+
+    const searchData = results.filter(item => {
+      const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
+      const textData = searchText.toUpperCase();
+      return itemData.includes(textData);
+    });
+
     return (
       <View>
         <Text style={styles.header}>Results</Text>
+        <View style={styles.searchContainer}>
+          <SearchBar
+            onChangeText={this.handleSearch}
+            value={searchText}
+            placeholder="Search Here"
+            platform="ios"
+          />
+        </View>  
         <FlatList
-          style={{marginTop: 20, marginBottom: 40}}
-          data={this.state.results}
+          style={styles.list}
+          data={searchData}
           keyExtractor={item => item.id}
-          renderItem={({ item }) => <Result item={item} />}
+          renderItem={({ item }) => 
+            <Result item={item} />
+          }
           ItemSeparatorComponent={() => <View style={styles.separator} />}
         />
       </View>
@@ -32,7 +58,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     position: 'relative',
     top: 10,
-    fontSize: 30
+    fontSize: 30,
+  },
+
+  searchContainer: {
+    top: 10,
+    marginTop: 10,
+    marginBottom: 10
+  },
+
+  list: {
+    marginBottom: 130,
   },
 
   separator: {
