@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Platform, ImageBackground, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import API_KEY from './API_KEY'
 
 export default class Home extends Component {
-  // static navigationOptions = ({ navigation }) => ({
-  //   header: Home
-  // })
   constructor(props) {
   super(props)
     this.state = {
@@ -26,10 +23,8 @@ export default class Home extends Component {
   }
 
   fetchData() {
-    // var lat = this.state.position.coords.latitude;
-    // var lng = this.state.position.coords.longitude;
-    var lat = 37.517520;
-    var lng = -121.950640;
+    var lat = this.state.position.coords.latitude;
+    var lng = this.state.position.coords.longitude;
     
     const config = {
       headers: {
@@ -53,15 +48,20 @@ export default class Home extends Component {
     
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>BobaBuddy</Text>
-        <TouchableOpacity
-          style={{borderRadius: 7,padding: 10,  backgroundColor: 'rgb(37, 160, 205)'}}
-          onPress={this.fetchData.bind(this)}
-        >
-          <Text style={{fontSize: 15}}>Find Boba!</Text>
-        </TouchableOpacity>
-      </View>
+      <ImageBackground
+        style={{width: '100%', height: '100%'}}
+        source={require('./boba.png')}
+      >
+        <View style={styles.container}>
+          <Text style={styles.title}>Boba Buddy</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={this.fetchData.bind(this)}
+          >
+            <Text style={{fontSize: 20, color: 'white'}}>Find Boba!</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     );
   }
 }
@@ -71,11 +71,25 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 40,
+
+  title: {
+    position: 'absolute',
+    top: '45%',
+    fontSize: 55,
+    color: 'white',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10,
     textAlign: 'center',
     margin: 10,
   },
+
+  button: {
+    position: 'absolute',
+    top: '65%',
+    borderRadius: 7,
+    padding: 10,
+    backgroundColor: 'rgb(37, 160, 205)',
+  }
 });

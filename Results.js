@@ -15,24 +15,25 @@ class Results extends Component {
       <View>
         <Text style={styles.header}>Results</Text>
         <FlatList
-          style={{marginTop: 80}}
-          initialNumToRender={10}
+          style={{marginTop: 20, marginBottom: 40}}
           data={this.state.results}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
             <View>
               <TouchableOpacity style={styles.resultRow} onPress={() => Linking.openURL(item.url)}>
-                <Image source={{uri: item.image_url}} style={{width: 90, height: 90}} 
+                <Image 
+                  source={{uri: item.image_url}} 
+                  style={{width: 80, height: 80}} 
                 />
                 <View style={styles.resultDesc}>  
                   <Text style={{fontWeight: 'bold', fontSize: 20}}>{item.name}</Text>
-                  <Text>Rating: {item.rating} / 5 </Text>
-                  <Text>{item.location.display_address[0]}</Text>
-                  <Text>{`${item.location.city}, ${item.location.state} ${item.location.zip_code}`}</Text>
+                  <Text>Rating: {item.rating} / 5</Text>
+                  <Text>{`${item.location.display_address[0]}, ${item.location.city}`}</Text>
+                  <Text>{(item.distance * 0.000621371).toFixed(1)} Miles Away</Text>
                 </View>
               </TouchableOpacity>
-            </View>
-          )}
+            </View>)}
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
         />
       </View>
     );
@@ -40,10 +41,10 @@ class Results extends Component {
 }
  
 const styles = StyleSheet.create({
-  header:{
+  header: {
     textAlign: 'center',
     position: 'relative',
-    top: 60,
+    top: 10,
     fontSize: 30
   },
  
@@ -56,7 +57,12 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     flexDirection: 'column',
     justifyContent: 'space-between'
-  }
+  },
+
+  separator: {
+    height: 0.7,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+  },
 });
  
 export default Results;
