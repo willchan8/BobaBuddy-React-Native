@@ -8,6 +8,7 @@ class ResultsList extends Component {
     super(props);
     this.state = {
       results: this.props.navigation.getParam('response').data.businesses,
+      // currentPosition: this.props.navigation.getParam('currentPosition'),
       searchText: ''
     }
     this.handleSearch = this.handleSearch.bind(this);
@@ -21,6 +22,7 @@ class ResultsList extends Component {
  
   render() {
     const {results, searchText} = this.state;
+    const handleSave = this.props.navigation.getParam('handleSave');
 
     const searchData = results.filter(item => {
       const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
@@ -44,7 +46,7 @@ class ResultsList extends Component {
           data={searchData}
           keyExtractor={item => item.id}
           renderItem={({ item }) => 
-            <Result item={item} />
+            <Result item={item} handleSave={handleSave}/>
           }
           ItemSeparatorComponent={() => <View style={styles.separator} />}
         />

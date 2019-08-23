@@ -7,8 +7,10 @@ export default class Home extends Component {
   constructor(props) {
     super(props)
       this.state = {
-        position: null
+        position: null,
+        savedSpots: []
       };
+    this.handleSave = this.handleSave.bind(this);
   }
 
   componentDidMount() {
@@ -21,6 +23,12 @@ export default class Home extends Component {
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
   }
+
+  handleSave(savedItem) {
+    this.setState(prevState => ({
+      savedSpots: [...prevState.savedSpots, savedItem]
+    }));
+  };
 
   fetchData() {
     if (this.state.position) {
@@ -41,8 +49,11 @@ export default class Home extends Component {
       axios.get('https://api.yelp.com/v3/businesses/search', config)
       .then((response) => {
         this.props.navigation.push(
-          'ResultsList',
-          {response: response}
+          'ResultsList', {
+          response: response,
+          savedSpots: this.state.savedSpots,
+          handleSave: this.handleSave
+          }
         )
       })
       .catch(error => console.log(error));
