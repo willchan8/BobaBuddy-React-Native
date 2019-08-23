@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { ImageBackground, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import axios from 'axios';
-import API_KEY from './API_KEY'
+import API_KEY from '../data/API_KEY'
 
 export default class Home extends Component {
   constructor(props) {
     super(props)
       this.state = {
         position: null,
-        savedSpots: []
+        favorites: []
       };
-    this.handleSave = this.handleSave.bind(this);
+    this.handleFavorite = this.handleFavorite.bind(this);
+    this.handleUnfavorite = this.handleUnfavorite.bind(this);
   }
 
   componentDidMount() {
@@ -24,11 +25,28 @@ export default class Home extends Component {
     );
   }
 
-  handleSave(savedItem) {
+  handleFavorite(item) {
     this.setState(prevState => ({
-      savedSpots: [...prevState.savedSpots, savedItem]
+      favorites: [...prevState.favorites, item]
     }));
   };
+
+  handleUnfavorite(item) {
+    this.setState(prevState => ({
+      favorites: prevState.favorites.filter(favorite => favorite.id !== item.id)
+    }));
+
+    console.log(item);
+  }
+
+  openFavorites() {
+    this.props.navigation.push(
+      'FavoritesList', {
+      favorites: this.state.favorites,
+      handleUnfavorite: this.handleUnfavorite
+      }
+    )
+  }
 
   fetchData() {
     if (this.state.position) {
@@ -51,8 +69,8 @@ export default class Home extends Component {
         this.props.navigation.push(
           'ResultsList', {
           response: response,
-          savedSpots: this.state.savedSpots,
-          handleSave: this.handleSave
+          favorites: this.state.favorites,
+          handleFavorite: this.handleFavorite
           }
         )
       })
@@ -64,17 +82,25 @@ export default class Home extends Component {
     return (
       <ImageBackground
         style={{width: '100%', height: '100%'}}
-        source={require('./boba.png')}
+        source={require('../data/boba.png')}
       >
         <View style={styles.container}>
           <Text style={styles.title}>BOBA BUDDY</Text>
           <TouchableOpacity
-            style={styles.button}
+            style={styles.findButton}
             onPress={this.fetchData.bind(this)}
           >
             <Text style={{fontSize: 20, color: 'white'}}>Find Boba!</Text>
           </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.favoriteButton}
+            onPress={this.openFavorites.bind(this)}
+          >
+            <Text style={{fontSize: 20, color: 'white'}}>Favorites</Text>
+          </TouchableOpacity>
         </View>
+
       </ImageBackground>
     );
   }
@@ -101,11 +127,19 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 
-  button: {
+  findButton: {
     position: 'absolute',
     top: '60.5%',
     borderRadius: 7,
     padding: 10,
     backgroundColor: 'rgb(37, 160, 205)',
-  }
+  },
+
+  favoriteButton: {
+    position: 'absolute',
+    top: '85%',
+    borderRadius: 7,
+    padding: 10,
+    backgroundColor: 'rgb(37, 160, 205)',
+  },
 });

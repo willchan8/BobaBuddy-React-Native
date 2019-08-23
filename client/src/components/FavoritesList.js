@@ -1,14 +1,13 @@
 import React, { Component } from 'react'; 
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-import Result from './Result'; 
+import Favorite from './Favorite'; 
 
-class ResultsList extends Component {
+class FavoritesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      results: this.props.navigation.getParam('response').data.businesses,
-      // currentPosition: this.props.navigation.getParam('currentPosition'),
+      favorites: this.props.navigation.getParam('favorites'),
       searchText: ''
     }
     this.handleSearch = this.handleSearch.bind(this);
@@ -21,10 +20,10 @@ class ResultsList extends Component {
   }
  
   render() {
-    const {results, searchText} = this.state;
-    const handleFavorite = this.props.navigation.getParam('handleFavorite');
+    const {favorites, searchText} = this.state;
+    const handleUnfavorite = this.props.navigation.getParam('handleUnfavorite');
 
-    const searchData = results.filter(item => {
+    const searchData = favorites.filter(item => {
       const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
       const textData = searchText.toUpperCase();
       return itemData.includes(textData);
@@ -32,7 +31,7 @@ class ResultsList extends Component {
 
     return (
       <View>
-        <Text style={styles.header}>Results</Text>
+        <Text style={styles.header}>My Favorites</Text>
         <View style={styles.searchContainer}>
           <SearchBar
             onChangeText={this.handleSearch}
@@ -46,7 +45,7 @@ class ResultsList extends Component {
           data={searchData}
           keyExtractor={item => item.id}
           renderItem={({ item }) => 
-            <Result item={item} handleFavorite={handleFavorite}/>
+            <Favorite item={item} handleUnfavorite={handleUnfavorite}/>
           }
           ItemSeparatorComponent={() => <View style={styles.separator} />}
         />
@@ -79,4 +78,4 @@ const styles = StyleSheet.create({
   },
 });
  
-export default ResultsList;
+export default FavoritesList;

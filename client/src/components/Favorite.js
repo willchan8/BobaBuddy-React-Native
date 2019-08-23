@@ -1,13 +1,13 @@
 import React, { Component } from 'react'; 
 import { Alert, Platform, StyleSheet, Text, View, Image, Linking, TouchableOpacity } from 'react-native';
  
-class Result extends Component {
+class Favorite extends Component {
   constructor(props) {
     super(props)
     this.state = {
     }
     this.openNavigation = this.openNavigation.bind(this);
-    this.saveResult = this.saveResult.bind(this);
+    this.unfavoriteResult = this.unfavoriteResult.bind(this);
     this.handlePress = this.handlePress.bind(this);
   }
 
@@ -28,9 +28,10 @@ class Result extends Component {
     Linking.openURL(url); 
   }
 
-  saveResult() {
-    const { item, handleFavorite } = this.props;
-    handleFavorite(item);
+  unfavoriteResult() {
+    const { item, handleUnfavorite } = this.props;
+    handleUnfavorite(item);
+    console.log('UNSAVED');
   }
 
   handlePress() {
@@ -41,7 +42,7 @@ class Result extends Component {
       'What would you like to do?',
       [
         {text: 'Open Navigation', onPress: () => this.openNavigation()},
-        {text: 'Save to Favorites', onPress: () => this.saveResult()},
+        {text: 'Remove From Favorites', onPress: () => this.unfavoriteResult()},
         {
           text: 'Cancel',
           onPress: () => console.log('Cancel Pressed'),
@@ -76,8 +77,6 @@ class Result extends Component {
     );
   }
 }
-
-{/* <TouchableOpacity onPress={() => Linking.openURL('maps://app?saddr=100+101&daddr=100+102')}></TouchableOpacity> */}
  
 const styles = StyleSheet.create({ 
   resultRow: {
@@ -92,4 +91,4 @@ const styles = StyleSheet.create({
   },
 });
  
-export default Result;
+export default Favorite;
