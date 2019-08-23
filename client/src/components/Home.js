@@ -32,15 +32,16 @@ export default class Home extends Component {
   };
 
   handleUnfavorite(item) {
-    this.setState(prevState => ({
-      favorites: prevState.favorites.filter(favorite => favorite.id !== item.id)
-    }));
+    const { navigate } = this.props.navigation;
 
-    console.log(item);
+    this.setState({
+      favorites: this.state.favorites.filter(favorite => favorite.id !== item.id)
+    }, () => this.props.navigation.navigate("FavoritesList", {favorites: this.state.favorites}))
+
   }
 
   openFavorites() {
-    this.props.navigation.push(
+    this.props.navigation.navigate(
       'FavoritesList', {
       favorites: this.state.favorites,
       handleUnfavorite: this.handleUnfavorite
@@ -66,7 +67,7 @@ export default class Home extends Component {
   
       axios.get('https://api.yelp.com/v3/businesses/search', config)
       .then((response) => {
-        this.props.navigation.push(
+        this.props.navigation.navigate(
           'ResultsList', {
           response: response,
           favorites: this.state.favorites,

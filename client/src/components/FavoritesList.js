@@ -18,6 +18,12 @@ class FavoritesList extends Component {
       searchText: text,
     });
   }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.navigation.getParam('favorites') !== prevProps.navigation.getParam('favorites')) {
+      this.setState({favorites: this.props.navigation.getParam('favorites')});
+    }
+  }
  
   render() {
     const {favorites, searchText} = this.state;
