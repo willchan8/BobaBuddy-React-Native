@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
 
   resultDesc: {
-    paddingLeft: 20,
+    paddingLeft: 15,
     flexDirection: 'column',
     justifyContent: 'space-between'
   },

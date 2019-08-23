@@ -7,26 +7,25 @@ class FavoritesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      favorites: this.props.navigation.getParam('favorites'),
       searchText: ''
     }
     this.handleSearch = this.handleSearch.bind(this);
   }
+
+  static navigationOptions = {
+    title: 'Favorites',
+  };
 
   handleSearch(text) {
     this.setState({
       searchText: text,
     });
   }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.navigation.getParam('favorites') !== prevProps.navigation.getParam('favorites')) {
-      this.setState({favorites: this.props.navigation.getParam('favorites')});
-    }
-  }
  
   render() {
-    const {favorites, searchText} = this.state;
+    const {searchText} = this.state;
+
+    const favorites = this.props.navigation.getParam('favorites');
     const handleUnfavorite = this.props.navigation.getParam('handleUnfavorite');
 
     const searchData = favorites.filter(item => {

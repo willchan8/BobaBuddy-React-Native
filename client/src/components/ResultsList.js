@@ -7,8 +7,6 @@ class ResultsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      results: this.props.navigation.getParam('response').data.businesses,
-      // currentPosition: this.props.navigation.getParam('currentPosition'),
       searchText: ''
     }
     this.handleSearch = this.handleSearch.bind(this);
@@ -21,8 +19,10 @@ class ResultsList extends Component {
   }
  
   render() {
-    const {results, searchText} = this.state;
+    const {searchText} = this.state;
+    const results = this.props.navigation.getParam('response').data.businesses;
     const handleFavorite = this.props.navigation.getParam('handleFavorite');
+    const favorites = this.props.navigation.getParam('favorites');
 
     const searchData = results.filter(item => {
       const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
@@ -46,7 +46,7 @@ class ResultsList extends Component {
           data={searchData}
           keyExtractor={item => item.id}
           renderItem={({ item }) => 
-            <Result item={item} handleFavorite={handleFavorite}/>
+            <Result item={item} favorites={favorites} handleFavorite={handleFavorite}/>
           }
           ItemSeparatorComponent={() => <View style={styles.separator} />}
         />

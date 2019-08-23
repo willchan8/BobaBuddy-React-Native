@@ -5,6 +5,7 @@ class Result extends Component {
   constructor(props) {
     super(props)
     this.state = {
+
     }
     this.openNavigation = this.openNavigation.bind(this);
     this.saveResult = this.saveResult.bind(this);
@@ -34,14 +35,15 @@ class Result extends Component {
   }
 
   handlePress() {
-    const { item } = this.props;
+    const { item, favorites } = this.props;
+    const favorited = !favorites.length || favorites.some( favorite => favorite.id !== item.id );
 
     Alert.alert(
       item.name,
       'What would you like to do?',
       [
         {text: 'Open Navigation', onPress: () => this.openNavigation()},
-        {text: 'Save to Favorites', onPress: () => this.saveResult()},
+        {text: favorited ? 'Add to Favorites' : 'Remove from Favorites', onPress: () => this.saveResult()},
         {
           text: 'Cancel',
           onPress: () => console.log('Cancel Pressed'),
@@ -76,8 +78,6 @@ class Result extends Component {
     );
   }
 }
-
-{/* <TouchableOpacity onPress={() => Linking.openURL('maps://app?saddr=100+101&daddr=100+102')}></TouchableOpacity> */}
  
 const styles = StyleSheet.create({ 
   resultRow: {
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
 
   resultDesc: {
-    paddingLeft: 20,
+    paddingLeft: 15,
     flexDirection: 'column',
     justifyContent: 'space-between'
   },
