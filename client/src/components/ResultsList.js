@@ -21,8 +21,7 @@ class ResultsList extends Component {
   render() {
     const {searchText} = this.state;
     const results = this.props.navigation.getParam('response').data.businesses;
-    const handleFavorite = this.props.navigation.getParam('handleFavorite');
-    const favorites = this.props.navigation.getParam('favorites');
+    const { favorites, handleFavorite, handleUnfavorite } = this.props.screenProps;
 
     const searchData = results.filter(item => {
       const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
@@ -46,7 +45,7 @@ class ResultsList extends Component {
           data={searchData}
           keyExtractor={item => item.id}
           renderItem={({ item }) => 
-            <Result item={item} favorites={favorites} handleFavorite={handleFavorite}/>
+            <Result item={item} favorites={favorites} handleFavorite={handleFavorite} handleUnfavorite={handleUnfavorite}/>
           }
           ItemSeparatorComponent={() => <View style={styles.separator} />}
         />

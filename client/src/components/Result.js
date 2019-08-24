@@ -34,16 +34,21 @@ class Result extends Component {
     handleFavorite(item);
   }
 
+  unsaveResult() {
+    const { item, handleUnfavorite } = this.props;
+    handleUnfavorite(item);
+  }
+
   handlePress() {
     const { item, favorites } = this.props;
-    const favorited = !favorites.length || favorites.some( favorite => favorite.id !== item.id );
+    const favorited = favorites.some( favorite => favorite.id === item.id );
 
     Alert.alert(
       item.name,
       'What would you like to do?',
       [
         {text: 'Open Navigation', onPress: () => this.openNavigation()},
-        {text: favorited ? 'Add to Favorites' : 'Remove from Favorites', onPress: () => this.saveResult()},
+        {text: favorited ? 'Remove from Favorites' : 'Add to Favorites', onPress: favorited ? () => this.unsaveResult() : () => this.saveResult()},
         {
           text: 'Cancel',
           onPress: () => console.log('Cancel Pressed'),

@@ -7,53 +7,92 @@ export default class Home extends Component {
   constructor(props) {
     super(props)
       this.state = {
-        position: null,
-        favorites: []
+        // position: null,
+        // favorites: []
       };
-    this.handleFavorite = this.handleFavorite.bind(this);
-    this.handleUnfavorite = this.handleUnfavorite.bind(this);
+    // this.handleFavorite = this.handleFavorite.bind(this);
+    // this.handleUnfavorite = this.handleUnfavorite.bind(this);
   }
 
-  componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        this.setState({position});
-        console.log(this.state.position.coords);
-      },
-      (error) => alert(error),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    );
-  }
+  // componentDidMount() {
+  //   navigator.geolocation.getCurrentPosition(
+  //     (position) => {
+  //       this.setState({position});
+  //       console.log(this.state.position.coords);
+  //     },
+  //     (error) => alert(error),
+  //     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+  //   );
+  // }
 
-  handleFavorite(item) {
-    const { navigate } = this.props.navigation;
+  // handleFavorite(item) {
+  //   const { navigate } = this.props.navigation;
 
-    this.setState(prevState => ({
-      favorites: [...prevState.favorites, item]
-    }), () => navigate("TabNavigator", {favorites: this.state.favorites}))
-  }
+  //   this.setState(prevState => ({
+  //     favorites: [...prevState.favorites, item]
+  //   }), () => navigate("ResultsList", {favorites: this.state.favorites}))
+  // }
 
-  handleUnfavorite(item) {
-    const { navigate } = this.props.navigation;
+  // handleUnfavorite(item) {
+  //   const { navigate } = this.props.navigation;
 
-    this.setState({
-      favorites: this.state.favorites.filter(favorite => favorite.id !== item.id)
-    }, () => navigate("FavoritesList", {favorites: this.state.favorites}))
-  }
+  //   this.setState({
+  //     favorites: this.state.favorites.filter(favorite => favorite.id !== item.id)
+  //   }, () => navigate("FavoritesList", {favorites: this.state.favorites}))
+  // }
+
+  // openFavorites() {
+  //   this.props.navigation.navigate(
+  //     'FavoritesList', {
+  //     favorites: this.state.favorites,
+  //     handleUnfavorite: this.handleUnfavorite
+  //     }
+  //   )
+  // }
+
+  // fetchData() {
+  //   if (this.state.position) {
+  //     let lat = this.state.position.coords.latitude;
+  //     let lng = this.state.position.coords.longitude;
+  //     let location = String(lat) + ',' + String(lng);
+      
+  //     const config = {
+  //       headers: {
+  //         'Authorization': `Bearer ${API_KEY}`
+  //       },
+  //       params: {
+  //         term: 'boba',
+  //         location: location,
+  //       }
+  //     }
+  
+  //     axios.get('https://api.yelp.com/v3/businesses/search', config)
+  //     .then((response) => {
+  //       this.props.navigation.navigate(
+  //         'TabNavigator', {
+  //         response: response,
+  //         favorites: this.state.favorites,
+  //         handleFavorite: this.handleFavorite
+  //         }
+  //       )
+  //     })
+  //     .catch(error => console.log(error));
+  //   }
+  // }
 
   openFavorites() {
     this.props.navigation.navigate(
       'FavoritesList', {
-      favorites: this.state.favorites,
-      handleUnfavorite: this.handleUnfavorite
+      favorites: this.props.screenProps.favorites,
+      handleUnfavorite: this.props.screenProps.handleUnfavorite
       }
     )
   }
 
   fetchData() {
-    if (this.state.position) {
-      let lat = this.state.position.coords.latitude;
-      let lng = this.state.position.coords.longitude;
+    if (this.props.screenProps.position) {
+      let lat = this.props.screenProps.position.coords.latitude;
+      let lng = this.props.screenProps.position.coords.longitude;
       let location = String(lat) + ',' + String(lng);
       
       const config = {
@@ -71,8 +110,8 @@ export default class Home extends Component {
         this.props.navigation.navigate(
           'TabNavigator', {
           response: response,
-          favorites: this.state.favorites,
-          handleFavorite: this.handleFavorite
+          favorites: this.props.screenProps.favorites,
+          handleFavorite: this.props.screenProps.handleFavorite
           }
         )
       })
@@ -88,19 +127,21 @@ export default class Home extends Component {
       >
         <View style={styles.container}>
           <Text style={styles.title}>BOBA BUDDY</Text>
-          <TouchableOpacity
-            style={styles.findButton}
-            onPress={this.fetchData.bind(this)}
-          >
-            <Text style={{fontSize: 20, color: 'white'}}>Find Boba!</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonsContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={this.fetchData.bind(this)}
+            >
+              <Text style={{fontSize: 20, color: 'white'}}>Find Boba!</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.favoriteButton}
-            onPress={this.openFavorites.bind(this)}
-          >
-            <Text style={{fontSize: 20, color: 'white'}}>Favorites</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={this.openFavorites.bind(this)}
+            >
+              <Text style={{fontSize: 20, color: 'white'}}>Favorites</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
       </ImageBackground>
@@ -129,19 +170,15 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 
-  findButton: {
-    position: 'absolute',
-    top: '60.5%',
-    borderRadius: 7,
-    padding: 10,
-    backgroundColor: 'rgb(37, 160, 205)',
+  buttonsContainer: {
+    flexDirection: "row",
   },
 
-  favoriteButton: {
-    position: 'absolute',
-    top: '85%',
+  button: {
+    top: '27%',
     borderRadius: 7,
-    padding: 10,
+    padding: 8,
+    margin: 20,
     backgroundColor: 'rgb(37, 160, 205)',
   },
 });

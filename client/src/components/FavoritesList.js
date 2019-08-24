@@ -23,10 +23,8 @@ class FavoritesList extends Component {
   }
  
   render() {
-    const {searchText} = this.state;
-
-    const favorites = this.props.navigation.getParam('favorites');
-    const handleUnfavorite = this.props.navigation.getParam('handleUnfavorite');
+    const { searchText } = this.state;
+    const { favorites, handleUnfavorite } = this.props.screenProps;
 
     const searchData = favorites.filter(item => {
       const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
