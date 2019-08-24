@@ -31,7 +31,6 @@ class Favorite extends Component {
   unfavoriteResult() {
     const { item, handleUnfavorite } = this.props;
     handleUnfavorite(item);
-    console.log('UNSAVED');
   }
 
   handlePress() {

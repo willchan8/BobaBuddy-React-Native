@@ -12,10 +12,6 @@ class FavoritesList extends Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  static navigationOptions = {
-    title: 'Favorites',
-  };
-
   handleSearch(text) {
     this.setState({
       searchText: text,

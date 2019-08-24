@@ -7,78 +7,8 @@ export default class Home extends Component {
   constructor(props) {
     super(props)
       this.state = {
-        // position: null,
-        // favorites: []
       };
-    // this.handleFavorite = this.handleFavorite.bind(this);
-    // this.handleUnfavorite = this.handleUnfavorite.bind(this);
   }
-
-  // componentDidMount() {
-  //   navigator.geolocation.getCurrentPosition(
-  //     (position) => {
-  //       this.setState({position});
-  //       console.log(this.state.position.coords);
-  //     },
-  //     (error) => alert(error),
-  //     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-  //   );
-  // }
-
-  // handleFavorite(item) {
-  //   const { navigate } = this.props.navigation;
-
-  //   this.setState(prevState => ({
-  //     favorites: [...prevState.favorites, item]
-  //   }), () => navigate("ResultsList", {favorites: this.state.favorites}))
-  // }
-
-  // handleUnfavorite(item) {
-  //   const { navigate } = this.props.navigation;
-
-  //   this.setState({
-  //     favorites: this.state.favorites.filter(favorite => favorite.id !== item.id)
-  //   }, () => navigate("FavoritesList", {favorites: this.state.favorites}))
-  // }
-
-  // openFavorites() {
-  //   this.props.navigation.navigate(
-  //     'FavoritesList', {
-  //     favorites: this.state.favorites,
-  //     handleUnfavorite: this.handleUnfavorite
-  //     }
-  //   )
-  // }
-
-  // fetchData() {
-  //   if (this.state.position) {
-  //     let lat = this.state.position.coords.latitude;
-  //     let lng = this.state.position.coords.longitude;
-  //     let location = String(lat) + ',' + String(lng);
-      
-  //     const config = {
-  //       headers: {
-  //         'Authorization': `Bearer ${API_KEY}`
-  //       },
-  //       params: {
-  //         term: 'boba',
-  //         location: location,
-  //       }
-  //     }
-  
-  //     axios.get('https://api.yelp.com/v3/businesses/search', config)
-  //     .then((response) => {
-  //       this.props.navigation.navigate(
-  //         'TabNavigator', {
-  //         response: response,
-  //         favorites: this.state.favorites,
-  //         handleFavorite: this.handleFavorite
-  //         }
-  //       )
-  //     })
-  //     .catch(error => console.log(error));
-  //   }
-  // }
 
   openFavorites() {
     this.props.navigation.navigate(
@@ -107,9 +37,13 @@ export default class Home extends Component {
   
       axios.get('https://api.yelp.com/v3/businesses/search', config)
       .then((response) => {
+        this.props.screenProps.saveResponse(response);
+      })
+      .then(() => {
         this.props.navigation.navigate(
           'TabNavigator', {
-          response: response,
+          // response: response,
+          results: this.props.screenProps.results,
           favorites: this.props.screenProps.favorites,
           handleFavorite: this.props.screenProps.handleFavorite
           }

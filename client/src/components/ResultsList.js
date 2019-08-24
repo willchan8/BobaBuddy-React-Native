@@ -19,9 +19,8 @@ class ResultsList extends Component {
   }
  
   render() {
-    const {searchText} = this.state;
-    const results = this.props.navigation.getParam('response').data.businesses;
-    const { favorites, handleFavorite, handleUnfavorite } = this.props.screenProps;
+    const { searchText } = this.state;
+    const { favorites, handleFavorite, handleUnfavorite, results } = this.props.screenProps;
 
     const searchData = results.filter(item => {
       const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();

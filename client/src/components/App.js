@@ -9,8 +9,10 @@ export default class App extends Component {
     super(props);
     this.state = {
       position: null,
+      results: [],
       favorites: []
     }
+    this.saveResponse = this.saveResponse.bind(this);
     this.handleFavorite = this.handleFavorite.bind(this);
     this.handleUnfavorite = this.handleUnfavorite.bind(this);
   }
@@ -24,6 +26,12 @@ export default class App extends Component {
       (error) => alert(error),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
+  }
+
+  saveResponse(response) {
+    this.setState({
+      results: response.data.businesses
+    })
   }
 
   handleFavorite(item) {
@@ -44,6 +52,7 @@ export default class App extends Component {
       <AppContainer 
         screenProps={{
           ...this.state,
+          saveResponse: this.saveResponse,
           handleFavorite: this.handleFavorite,
           handleUnfavorite: this.handleUnfavorite,
         }}

@@ -1,38 +1,38 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 
 // const Marker = MapView.Marker
 
 export default class MapScreen extends Component {
-  // renderMarkers() {
-  //   return this.props.items.map((item, index) => (
-  //     <Marker key={index} title={item.name} coordinate={item.coords} />
-  //   ))
-  // }
+  renderMarkers() {
+    return this.props.screenProps.results.map((item) => (
+      <Marker key={item.id} coordinate={item.coordinates} />
+    ))
+  }
   
   render() {
-    // const { region } = this.props
+    const { latitude, longitude } = this.props.screenProps.position.coords
     return (
       <MapView
         style={styles.container}
+        // provider={PROVIDER_GOOGLE}
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
+          latitude: latitude,
+          longitude: longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
-        // showsUserLocation
-        // showsMyLocationButton
+        showsUserLocation
+        showsMyLocationButton
       >
-        {/* {this.renderMarkers()} */}
+        {this.renderMarkers()}
       </MapView>
     )
   }
 }
 const styles = {
   container: {
-    width: '100%',
-    height: '100%'
+    flex: 1
   }
 }
