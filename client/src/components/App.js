@@ -3,6 +3,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Home from './Home';
 import FavoritesList from './FavoritesList';
 import TabNavigator from './TabNavigator';
+import axios from 'axios';
 
 export default class App extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ export default class App extends Component {
       favorites: []
     }
     this.saveResponse = this.saveResponse.bind(this);
+    this.getFavorites = this.getFavorites.bind(this);
     this.handleFavorite = this.handleFavorite.bind(this);
     this.handleUnfavorite = this.handleUnfavorite.bind(this);
   }
@@ -34,11 +36,25 @@ export default class App extends Component {
     })
   }
 
-  handleFavorite(item) {
-    this.setState(prevState => ({
-      favorites: [...prevState.favorites, item]
+  getFavorites() {
+    axios.get('http://localhost:3000/favorites')
+    .then((response) => {
+      this.setState({ favorites: response.data })
     })
-    )
+    .catch(error => console.log(error));
+  }
+
+  handleFavorite(item) {
+    // this.setState(prevState => ({
+    //   favorites: [...prevState.favorites, item]
+    // })
+    // )
+
+    axios.post('http://localhost:3000/favorites', { favorite: item })
+    .then(() => {
+      this.getFavorites()
+    })
+    .catch(error => console.log(error));
   }
 
   handleUnfavorite(item) {
