@@ -32,8 +32,8 @@ getFavorite = (callback) => {
 	});
 };
 
-deleteFavorite = (callback) => {
-	Favorite.deleteMany({ user: 'Will' }, (err, result) => {
+deleteFavorite = (id, callback) => {
+	Favorite.deleteOne({ id: id }, (err, result) => {
 		if (err) {
 			callback(err);
 		} else {

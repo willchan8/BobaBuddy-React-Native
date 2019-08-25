@@ -36,14 +36,14 @@ app.post('/favorites', (req, res) => {
 		if (err) {
 			res.status(500).send();
 		} else {
-      res.status(201).send(data);
+      res.status(201).send();
 		}
 	});
 });
 
 app.delete('/favorites', (req, res) => {
-  const { item } = req.body;
-	db.deleteFavorite(item, (err, data) => {
+  const { id } = req.body;
+	db.deleteFavorite(id, (err, data) => {
 		if (err) {
 			res.status(500).send();
 		} else {

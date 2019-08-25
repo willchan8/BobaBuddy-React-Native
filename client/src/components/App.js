@@ -28,6 +28,8 @@ export default class App extends Component {
       (error) => alert(error),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
+
+    this.getFavorites();
   }
 
   saveResponse(response) {
@@ -58,9 +60,15 @@ export default class App extends Component {
   }
 
   handleUnfavorite(item) {
-    this.setState({
-      favorites: this.state.favorites.filter(favorite => favorite.id !== item.id)
+    // this.setState({
+    //   favorites: this.state.favorites.filter(favorite => favorite.id !== item.id)
+    // })
+    
+    axios.delete('http://localhost:3000/favorites', {data: item} )
+    .then(() => {
+      this.getFavorites()
     })
+    .catch(error => console.log(error));
   }
 
   render() {
