@@ -44,7 +44,7 @@ class FavoritesList extends Component {
           data={searchData}
           keyExtractor={item => item.id}
           renderItem={({ item }) => 
-            <Favorite item={item} handleUnfavorite={handleUnfavorite}/>
+            <Favorite item={item} favorites={favorites} handleUnfavorite={handleUnfavorite}/>
           }
           ItemSeparatorComponent={() => <View style={styles.separator} />}
         />

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'; 
 import { Alert, Platform, StyleSheet, Text, View, Image, Linking, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
  
 class Result extends Component {
   constructor(props) {
@@ -61,7 +62,8 @@ class Result extends Component {
   }
  
   render() {
-    const { item } = this.props;
+    const { item, favorites } = this.props;
+    const favorited = favorites.some( favorite => favorite.id === item.id );
 
     return (
       <View>
@@ -69,13 +71,13 @@ class Result extends Component {
           onPress={() => this.handlePress()}
         >
           <Image 
-            source={{uri: item.image_url}} 
+            source={{uri: item.photos[0]}} 
             style={{width: 80, height: 80}} 
           />
           <View style={styles.resultDesc}>  
-            <Text style={{fontWeight: 'bold', fontSize: 20}}>{item.name}</Text>
+    <Text style={{fontWeight: 'bold', fontSize: 20}}>{item.name} {favorited ? <Icon name="heart" size={20} color={"red"} /> : ''}</Text>
             <Text>Rating: {item.rating} / 5 ({item.review_count} Reviews)</Text>
-            <Text>{`${item.location.display_address[0]}, ${item.location.city}`}</Text>
+            <Text>{`${item.location.address1}, ${item.location.city}`}</Text>
             <Text>{(item.distance * 0.000621371).toFixed(1)} Miles Away</Text>
           </View>
         </TouchableOpacity>

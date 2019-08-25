@@ -4,8 +4,7 @@ addFavorite = (data, callback) => {
 	Favorite.findOne(data, (err, result) => {
 		if (err) {
 			callback(err);
-		}
-		if (result === null) {
+		} else {
 			Favorite.create(data, (err, result) => {
 				if (err) {
 					callback(err);
@@ -18,7 +17,7 @@ addFavorite = (data, callback) => {
 };
 
 getFavorite = (callback) => {
-	Favorite.find({ user: 'Will' }, (err, result) => {
+	Favorite.find({}, (err, result) => {
 		if (err) {
 			callback(err);
 		} else {

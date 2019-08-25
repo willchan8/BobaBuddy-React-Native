@@ -30,7 +30,7 @@ export default class App extends Component {
 
   saveResponse(response) {
     this.setState({
-      results: response.data.businesses
+      results: response.data.search.business
     })
   }
 

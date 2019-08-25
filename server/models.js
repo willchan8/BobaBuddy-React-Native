@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 
 const favoriteSchema = mongoose.Schema({
-	user: String,
-	name: String,
-	metadata: Array
+	data: Array
 });
 
 const Favorite = mongoose.model('Favorite', favoriteSchema);

@@ -23,7 +23,8 @@ export default class Home extends Component {
     if (this.props.screenProps.position) {
       let lat = this.props.screenProps.position.coords.latitude;
       let lng = this.props.screenProps.position.coords.longitude;
-      let location = String(lat) + ',' + String(lng);
+      // let location = String(lat) + ',' + String(lng);
+      let location = { latitude: lat, longitude: lng };
       
       const config = {
         headers: {
@@ -34,15 +35,16 @@ export default class Home extends Component {
           location: location,
         }
       }
-  
-      axios.get('https://api.yelp.com/v3/businesses/search', config)
+
+      axios.post('http://localhost:3000/', { location: location })
       .then((response) => {
-        this.props.screenProps.saveResponse(response);
+        // this.props.screenProps.saveResponse(response);
+        console.log(response.data.data.search.business);
+        this.props.screenProps.saveResponse(response.data);
       })
       .then(() => {
         this.props.navigation.navigate(
           'TabNavigator', {
-          // response: response,
           results: this.props.screenProps.results,
           favorites: this.props.screenProps.favorites,
           handleFavorite: this.props.screenProps.handleFavorite
@@ -50,6 +52,20 @@ export default class Home extends Component {
         )
       })
       .catch(error => console.log(error));
+      // axios.get('https://api.yelp.com/v3/businesses/search', config)
+      // .then((response) => {
+      //   this.props.screenProps.saveResponse(response);
+      // })
+      // .then(() => {
+      //   this.props.navigation.navigate(
+      //     'TabNavigator', {
+      //     results: this.props.screenProps.results,
+      //     favorites: this.props.screenProps.favorites,
+      //     handleFavorite: this.props.screenProps.handleFavorite
+      //     }
+      //   )
+      // })
+      // .catch(error => console.log(error));
     }
   }
     
