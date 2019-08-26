@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Alert, Platform, Linking } from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { Alert, Platform, Linking } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 
 export default class MapScreen extends Component {
   constructor(props) {

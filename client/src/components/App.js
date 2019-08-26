@@ -39,7 +39,7 @@ export default class App extends Component {
   }
 
   getFavorites() {
-    axios.get('http://localhost:3000/favorites')
+    axios.get('https://still-basin-89962.herokuapp.com/favorites')
     .then((response) => {
       this.setState({ favorites: response.data })
     })
@@ -47,12 +47,7 @@ export default class App extends Component {
   }
 
   handleFavorite(item) {
-    // this.setState(prevState => ({
-    //   favorites: [...prevState.favorites, item]
-    // })
-    // )
-
-    axios.post('http://localhost:3000/favorites', { favorite: item })
+    axios.post('https://still-basin-89962.herokuapp.com/favorites', { favorite: item })
     .then(() => {
       this.getFavorites()
     })
@@ -60,11 +55,7 @@ export default class App extends Component {
   }
 
   handleUnfavorite(item) {
-    // this.setState({
-    //   favorites: this.state.favorites.filter(favorite => favorite.id !== item.id)
-    // })
-    
-    axios.delete('http://localhost:3000/favorites', {data: item} )
+    axios.delete('https://still-basin-89962.herokuapp.com/favorites', {data: item} )
     .then(() => {
       this.getFavorites()
     })

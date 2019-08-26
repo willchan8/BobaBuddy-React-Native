@@ -36,10 +36,8 @@ export default class Home extends Component {
         }
       }
 
-      axios.post('http://localhost:3000/', { location: location })
+      axios.post('https://still-basin-89962.herokuapp.com/', { location: location })
       .then((response) => {
-        // this.props.screenProps.saveResponse(response);
-        console.log(response.data.data.search.business);
         this.props.screenProps.saveResponse(response.data);
       })
       .then(() => {
