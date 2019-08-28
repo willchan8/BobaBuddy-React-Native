@@ -1,9 +1,10 @@
 {
-  "name": "ReactNative",
+  "name": "BobaBuddy",
   "displayName": "BobaBuddy",
   "expo": {
-    "name": "ReactNative",
-    "slug": "expo-template-bare",
+    "name": "BobaBuddy",
+    "icon": "./icon.png",
+    "slug": "boba-buddy",
     "privacy": "unlisted",
     "sdkVersion": "34.0.0",
     "version": "1.0.0",
@@ -12,6 +13,10 @@
       "ios",
       "android",
       "web"
-    ]
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "description": ""
   }
 }

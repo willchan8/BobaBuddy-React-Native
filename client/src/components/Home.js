@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { ImageBackground, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import axios from 'axios';
-import API_KEY from '../data/API_KEY'
+import API_KEY from '../assets/API_KEY';
+// import boba from '../assets/boba';
 
 export default class Home extends Component {
   constructor(props) {
@@ -70,8 +71,8 @@ export default class Home extends Component {
   render() {
     return (
       <ImageBackground
+        source={require('../assets/boba.png')}
         style={{width: '100%', height: '100%'}}
-        source={require('../data/boba.png')}
       >
         <View style={styles.container}>
           <Text style={styles.title}>BOBA BUDDY</Text>
