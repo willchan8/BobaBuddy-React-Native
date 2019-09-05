@@ -24,8 +24,8 @@ export default class Home extends Component {
     if (this.props.screenProps.position) {
       let lat = this.props.screenProps.position.coords.latitude;
       let lng = this.props.screenProps.position.coords.longitude;
-      // let location = String(lat) + ',' + String(lng);
-      let location = { latitude: lat, longitude: lng };
+      let location = lat + ',' + lng;
+      // let location = { latitude: lat, longitude: lng };
       
       const config = {
         headers: {
@@ -37,23 +37,9 @@ export default class Home extends Component {
         }
       }
 
-      axios.post('https://still-basin-89962.herokuapp.com/', { location: location })
-      .then((response) => {
-        this.props.screenProps.saveResponse(response.data);
-      })
-      .then(() => {
-        this.props.navigation.navigate(
-          'TabNavigator', {
-          results: this.props.screenProps.results,
-          favorites: this.props.screenProps.favorites,
-          handleFavorite: this.props.screenProps.handleFavorite
-          }
-        )
-      })
-      .catch(error => console.log(error));
-      // axios.get('https://api.yelp.com/v3/businesses/search', config)
+      // axios.post('https://still-basin-89962.herokuapp.com/', { location: location })
       // .then((response) => {
-      //   this.props.screenProps.saveResponse(response);
+      //   this.props.screenProps.saveResponse(response.data);
       // })
       // .then(() => {
       //   this.props.navigation.navigate(
@@ -65,6 +51,20 @@ export default class Home extends Component {
       //   )
       // })
       // .catch(error => console.log(error));
+      axios.get('https://api.yelp.com/v3/businesses/search', config)
+      .then((response) => {
+        this.props.screenProps.saveResponse(response);
+      })
+      .then(() => {
+        this.props.navigation.navigate(
+          'TabNavigator', {
+          results: this.props.screenProps.results,
+          favorites: this.props.screenProps.favorites,
+          handleFavorite: this.props.screenProps.handleFavorite
+          }
+        )
+      })
+      .catch(error => console.log(error));
     }
   }
     

@@ -64,7 +64,11 @@ class Favorite extends Component {
           onPress={() => this.handlePress()}
         >
           <Image 
-            source={{uri: item.photos[0]}} 
+            // Yelp Fusion
+            source={{uri: item.image_url}}
+
+            // For GraphQL
+            // source={{uri: item.photos[0]}}
             style={{width: 80, height: 80}} 
           />
           <View style={styles.resultDesc}>  

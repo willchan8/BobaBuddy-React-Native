@@ -16,7 +16,7 @@ export default class MapScreen extends Component {
         key={item.id} 
         coordinate={item.coordinates}
         title={`${item.name}`}
-        pinColor='blue'
+        pinColor='red'
         onPress={() => {
           this.handlePress(item);
         }}

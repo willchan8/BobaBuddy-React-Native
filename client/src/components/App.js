@@ -34,7 +34,11 @@ export default class App extends Component {
 
   saveResponse(response) {
     this.setState({
-      results: response.data.search.business
+      // For Yelp Fusion
+      results: response.data.businesses
+
+      // For GraphQL
+      // results: response.data.search.business
     })
   }
 
