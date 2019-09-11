@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; 
 import { Alert, Platform, StyleSheet, Text, View, Image, Linking, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome';
  
 class Result extends Component {
   constructor(props) {

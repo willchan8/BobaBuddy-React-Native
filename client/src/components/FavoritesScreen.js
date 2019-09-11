@@ -1,9 +1,9 @@
 import React, { Component } from 'react'; 
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-import Result from './Result'; 
+import Favorite from './Favorite'; 
 
-class ResultsList extends Component {
+class FavoritesScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,9 +20,9 @@ class ResultsList extends Component {
  
   render() {
     const { searchText } = this.state;
-    const { favorites, handleFavorite, handleUnfavorite, results } = this.props.screenProps;
+    const { favorites, handleUnfavorite } = this.props.screenProps;
 
-    const searchData = results.filter(item => {
+    const searchData = favorites.filter(item => {
       const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
       const textData = searchText.toUpperCase();
       return itemData.includes(textData);
@@ -30,7 +30,6 @@ class ResultsList extends Component {
 
     return (
       <View>
-        <Text style={styles.header}>Results</Text>
         <View style={styles.searchContainer}>
           <SearchBar
             onChangeText={this.handleSearch}
@@ -44,7 +43,7 @@ class ResultsList extends Component {
           data={searchData}
           keyExtractor={item => item.id}
           renderItem={({ item }) => 
-            <Result item={item} favorites={favorites} handleFavorite={handleFavorite} handleUnfavorite={handleUnfavorite}/>
+            <Favorite item={item} favorites={favorites} handleUnfavorite={handleUnfavorite}/>
           }
           ItemSeparatorComponent={() => <View style={styles.separator} />}
         />
@@ -61,14 +60,8 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
 
-  searchContainer: {
-    top: 10,
-    marginTop: 10,
-    marginBottom: 10
-  },
-
   list: {
-    marginBottom: 130,
+    marginBottom: 60,
   },
 
   separator: {
@@ -77,4 +70,4 @@ const styles = StyleSheet.create({
   },
 });
  
-export default ResultsList;
+export default FavoritesScreen;

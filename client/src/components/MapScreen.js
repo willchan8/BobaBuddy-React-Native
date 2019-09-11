@@ -7,7 +7,11 @@ export default class MapScreen extends Component {
     super(props);
 
     this.handlePress = this.handlePress.bind(this);
-  } 
+  }
+
+  static navigationOptions = {
+    title: 'Map',
+  };
 
 
   renderMarkers() {

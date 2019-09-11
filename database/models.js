@@ -8,7 +8,8 @@ const favoriteSchema = mongoose.Schema({
     rating: Number,
     review_count: Number,
     distance: Number,
-    photos: [String],
+    // photos: [String],
+    image_url: String,
     coordinates: {latitude: Number, longitude: Number},
     location: {city: String, address1: String},
 });

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Home from './Home';
-import FavoritesList from './FavoritesList';
+import FavoritesScreen from './FavoritesScreen';
 import TabNavigator from './TabNavigator';
 import axios from 'axios';
 
@@ -81,9 +81,21 @@ export default class App extends Component {
 }
 
 const AppStackNavigator = createStackNavigator({
-  Home,
-  TabNavigator,
-  FavoritesList,
+  Home: {
+    screen: Home,
+  },
+  TabNavigator: {
+    screen: TabNavigator,
+    navigationOptions: {
+      headerTitle: 'Find Boba',
+    },
+  },
+  FavoritesScreen: {
+    screen: FavoritesScreen,
+    navigationOptions: {
+      headerTitle: 'My Favorites',
+    },
+  },
 }, {
   initialRouteName: 'Home',
 })

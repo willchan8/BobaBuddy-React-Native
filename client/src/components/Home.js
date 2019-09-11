@@ -13,14 +13,14 @@ export default class Home extends Component {
 
   openFavorites() {
     this.props.navigation.navigate(
-      'FavoritesList', {
+      'FavoritesScreen', {
       favorites: this.props.screenProps.favorites,
       handleUnfavorite: this.props.screenProps.handleUnfavorite
       }
     )
   }
 
-  fetchData() {
+  showResults() {
     if (this.props.screenProps.position) {
       let lat = this.props.screenProps.position.coords.latitude;
       let lng = this.props.screenProps.position.coords.longitude;
@@ -41,16 +41,6 @@ export default class Home extends Component {
       // .then((response) => {
       //   this.props.screenProps.saveResponse(response.data);
       // })
-      // .then(() => {
-      //   this.props.navigation.navigate(
-      //     'TabNavigator', {
-      //     results: this.props.screenProps.results,
-      //     favorites: this.props.screenProps.favorites,
-      //     handleFavorite: this.props.screenProps.handleFavorite
-      //     }
-      //   )
-      // })
-      // .catch(error => console.log(error));
       axios.get('https://api.yelp.com/v3/businesses/search', config)
       .then((response) => {
         this.props.screenProps.saveResponse(response);
@@ -79,7 +69,7 @@ export default class Home extends Component {
           <View style={styles.buttonsContainer}>
             <TouchableOpacity
               style={styles.button}
-              onPress={this.fetchData.bind(this)}
+              onPress={this.showResults.bind(this)}
             >
               <Text style={{fontSize: 20, color: 'white'}}>Find Boba!</Text>
             </TouchableOpacity>
