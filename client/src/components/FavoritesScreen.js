@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import Favorite from './Favorite'; 
+import FilterSlider from './FilterSlider';
 
 class FavoritesScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchText: ''
+      searchText: '',
+      rating: 3,
     }
     this.handleSearch = this.handleSearch.bind(this);
+    this.filterRating = this.filterRating.bind(this);
   }
 
   handleSearch(text) {
@@ -17,15 +20,21 @@ class FavoritesScreen extends Component {
       searchText: text,
     });
   }
+
+  filterRating(rating) {
+    this.setState({
+      rating: rating
+    });
+  }
  
   render() {
-    const { searchText } = this.state;
+    const { searchText, rating } = this.state;
     const { favorites, handleUnfavorite } = this.props.screenProps;
 
     const searchData = favorites.filter(item => {
       const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
       const textData = searchText.toUpperCase();
-      return itemData.includes(textData);
+      return itemData.includes(textData) && item.rating >= rating;
     });
 
     return (
@@ -37,7 +46,8 @@ class FavoritesScreen extends Component {
             placeholder="Search Here"
             platform="ios"
           />
-        </View>  
+        </View>
+        <FilterSlider filterRating={this.filterRating} rating={rating} />
         <FlatList
           style={styles.list}
           data={searchData}

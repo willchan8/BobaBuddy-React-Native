@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { ImageBackground, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import API_KEY from '../assets/API_KEY';
-// import boba from '../assets/boba';
 
 export default class Home extends Component {
   constructor(props) {
     super(props)
-      this.state = {
-      };
   }
 
   openFavorites() {
@@ -61,28 +59,35 @@ export default class Home extends Component {
   render() {
     return (
       <ImageBackground
-        source={require('../assets/boba.png')}
+        source={require('../assets/boba.jpg')}
         style={{width: '100%', height: '100%'}}
       >
         <View style={styles.container}>
           <Text style={styles.title}>BOBA BUDDY</Text>
-          <View style={styles.buttonsContainer}>
+          <View style={styles.buttonsRow}>
             <TouchableOpacity
               style={styles.button}
+              activeOpacity={0.4}
               onPress={this.showResults.bind(this)}
             >
-              <Text style={{fontSize: 20, color: 'white'}}>Find Boba!</Text>
+              <View style={styles.buttonContainer}>
+                <Icon name="search" size={20} />
+                <Text style={styles.buttonText}>Find Boba!</Text>
+              </View>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.button}
+              activeOpacity={0.4}
               onPress={this.openFavorites.bind(this)}
             >
-              <Text style={{fontSize: 20, color: 'white'}}>Favorites</Text>
+              <View style={styles.buttonContainer}>
+                <Icon name="heart" size={20} color="red" />
+                <Text style={styles.buttonText}>Favorites</Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>
-
       </ImageBackground>
     );
   }
@@ -99,7 +104,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '45%',
     fontSize: 50,
-    fontWeight: "700",
+    fontWeight: '700',
     letterSpacing: 2, 
     color: 'white',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
@@ -109,8 +114,13 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 
-  buttonsContainer: {
-    flexDirection: "row",
+  buttonsRow: {
+    flexDirection: 'row',
+  },
+
+  buttonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 
   button: {
@@ -120,4 +130,10 @@ const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: 'rgb(37, 160, 205)',
   },
+
+  buttonText: {
+    fontSize: 20,
+    color: 'white',
+    marginLeft: 5
+  }
 });

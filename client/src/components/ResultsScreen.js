@@ -1,15 +1,18 @@
 import React, { Component } from 'react'; 
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-import Result from './Result'; 
+import Result from './Result';
+import FilterSlider from './FilterSlider';
 
 class ResultsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchText: ''
+      searchText: '',
+      rating: 3,
     }
     this.handleSearch = this.handleSearch.bind(this);
+    this.filterRating = this.filterRating.bind(this);
   }
 
   handleSearch(text) {
@@ -17,15 +20,21 @@ class ResultsScreen extends Component {
       searchText: text,
     });
   }
+
+  filterRating(rating) {
+    this.setState({
+      rating: rating
+    });
+  }
  
   render() {
-    const { searchText } = this.state;
+    const { searchText, rating } = this.state;
     const { favorites, handleFavorite, handleUnfavorite, results } = this.props.screenProps;
 
     const searchData = results.filter(item => {
       const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
       const textData = searchText.toUpperCase();
-      return itemData.includes(textData);
+      return itemData.includes(textData) && item.rating >= rating;
     });
 
     return (
@@ -37,13 +46,14 @@ class ResultsScreen extends Component {
             placeholder="Search Here"
             platform="ios"
           />
-        </View>  
+        </View>
+        <FilterSlider filterRating={this.filterRating} rating={rating} />
         <FlatList
           style={styles.list}
           data={searchData}
           keyExtractor={item => item.id}
           renderItem={({ item }) => 
-            <Result item={item} favorites={favorites} handleFavorite={handleFavorite} handleUnfavorite={handleUnfavorite}/>
+            <Result style={styles.result}item={item} favorites={favorites} handleFavorite={handleFavorite} handleUnfavorite={handleUnfavorite}/>
           }
           ItemSeparatorComponent={() => <View style={styles.separator} />}
         />

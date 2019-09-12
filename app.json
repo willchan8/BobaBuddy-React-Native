@@ -4,6 +4,11 @@
   "expo": {
     "name": "BobaBuddy",
     "icon": "./icon.png",
+    "splash": {
+      "image": "./client/src/assets/boba.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#d5efec"
+    },
     "slug": "boba-buddy",
     "privacy": "unlisted",
     "sdkVersion": "34.0.0",

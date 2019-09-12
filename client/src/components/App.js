@@ -26,7 +26,7 @@ export default class App extends Component {
         console.log(this.state.position.coords);
       },
       (error) => alert(error),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 60000}
     );
 
     this.getFavorites();
