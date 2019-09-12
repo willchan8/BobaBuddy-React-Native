@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
 
   list: {
-    marginBottom: 65,
+    marginBottom: 105,
   },
 
   separator: {
