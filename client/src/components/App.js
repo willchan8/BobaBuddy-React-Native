@@ -43,7 +43,7 @@ export default class App extends Component {
   }
 
   getFavorites() {
-    axios.get('https://still-basin-89962.herokuapp.com/favorites')
+    axios.get('https://bobabuddy.herokuapp.com/favorites')
     .then((response) => {
       this.setState({ favorites: response.data })
     })
@@ -51,7 +51,7 @@ export default class App extends Component {
   }
 
   handleFavorite(item) {
-    axios.post('https://still-basin-89962.herokuapp.com/favorites', { favorite: item })
+    axios.post('https://bobabuddy.herokuapp.com/favorites', { favorite: item })
     .then(() => {
       this.getFavorites()
     })
@@ -59,7 +59,7 @@ export default class App extends Component {
   }
 
   handleUnfavorite(item) {
-    axios.delete('https://still-basin-89962.herokuapp.com/favorites', {data: item} )
+    axios.delete('https://bobabuddy.herokuapp.com/favorites', { data: item } )
     .then(() => {
       this.getFavorites()
     })
