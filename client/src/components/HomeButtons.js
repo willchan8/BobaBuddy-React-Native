@@ -100,6 +100,9 @@ const styles = StyleSheet.create({
     padding: 8,
     margin: 20,
     backgroundColor: 'rgb(37, 160, 205)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
   },
 
   buttonText: {
