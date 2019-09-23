@@ -27,10 +27,9 @@ export default class App extends Component {
           position: position,
           positionLoading: false,
         });
-        console.log(this.state.position.coords);
       },
       (error) => alert(error),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 60000}
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 60000 }
     );
 
     this.getFavorites();
@@ -51,23 +50,23 @@ export default class App extends Component {
     .then((response) => {
       this.setState({ favorites: response.data })
     })
-    .catch(error => console.log(error));
+    .catch(error => alert(error));
   }
 
   handleFavorite(item) {
-    axios.post('https://bobabuddy.herokuapp.com/favorites', { favorite: item })
+    axios.post('https://bobabuddy.herokuapp.com/favorites', { data: item })
     .then(() => {
-      this.getFavorites()
+      this.getFavorites();
     })
-    .catch(error => console.log(error));
+    .catch(error => alert(error));
   }
 
   handleUnfavorite(item) {
     axios.delete('https://bobabuddy.herokuapp.com/favorites', { data: item } )
     .then(() => {
-      this.getFavorites()
+      this.getFavorites();
     })
-    .catch(error => console.log(error));
+    .catch(error => alert(error));
   }
 
   render() {
