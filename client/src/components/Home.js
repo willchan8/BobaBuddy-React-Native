@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { ImageBackground, StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import HomeButtons from './HomeButtons';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import API_KEY from '../assets/API_KEY';
 
@@ -65,7 +64,7 @@ export default class Home extends Component {
           {
             positionLoading ? 
             <View style={{top: '13.5%'}}>
-              <ActivityIndicator size="large" color="#0000ff" />
+              <ActivityIndicator size="large" color="#000000" />
               <Text>Retrieving Location...</Text>
             </View> :
             <HomeButtons 

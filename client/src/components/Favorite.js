@@ -56,24 +56,33 @@ class Favorite extends Component {
 
   calculateDistance(myPosition, shopPosition) {
     let lat1 = myPosition.latitude;
-    let lon1 = myPosition.longitude;
+    let lng1 = myPosition.longitude;
     let lat2 = shopPosition.latitude;
-    let lon2 = shopPosition.longitude;
+    let lng2 = shopPosition.longitude;
 
-    let radlat1 = Math.PI * lat1 / 180;
-    let radlat2 = Math.PI * lat2 / 180;
-    let theta = lon1 - lon2;
-    let radtheta = Math.PI * theta / 180;
-    let distance = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-
-    if (distance > 1) {
-      distance = 1;
+    function degreesToRadians(degrees){
+      return degrees * Math.PI / 180;
     }
-    distance = Math.acos(distance);
-    distance = distance * 180/Math.PI;
-    distance = distance * 60 * 1.1515 * 0.8684;
 
-    return distance.toFixed(1);
+    let R = 6378137;
+    let dLat = degreesToRadians(lat2 - lat1);
+    let dLong = degreesToRadians(lng2 - lng1);
+    let a = Math.sin(dLat / 2)
+            *
+            Math.sin(dLat / 2) 
+            +
+            Math.cos(degreesToRadians(lat1)) 
+            * 
+            Math.cos(degreesToRadians(lat1)) 
+            *
+            Math.sin(dLong / 2) 
+            * 
+            Math.sin(dLong / 2);
+
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    let distance = (R * c * 0.000621371).toFixed(1);
+
+    return distance;
   }
  
   render() {

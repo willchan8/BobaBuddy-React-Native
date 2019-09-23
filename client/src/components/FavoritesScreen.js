@@ -58,8 +58,7 @@ class FavoritesScreen extends Component {
               position={position}
               favorites={favorites}
               handleUnfavorite={handleUnfavorite}
-              
-              />
+            />
           }
           ItemSeparatorComponent={() => <View style={styles.separator} />}
         />
