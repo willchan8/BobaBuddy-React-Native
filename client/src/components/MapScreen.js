@@ -29,7 +29,7 @@ export default class MapScreen extends Component {
           />
           <View style={{flex: 1, justifyContent: 'center'}}>
             <Text style={{fontWeight: 'bold', fontSize: 18}}>{item.name}</Text>
-            <Text>Rating: {item.rating}/5 ({item.review_count} Reviews)</Text>
+            <Text>Rating: {item.rating} / 5 ({item.review_count} Reviews)</Text>
             <Text>{`${item.location.address1}, ${item.location.city}`}</Text>
             {item.display_phone ? <Text>{item.display_phone}</Text> : null}
           </View>

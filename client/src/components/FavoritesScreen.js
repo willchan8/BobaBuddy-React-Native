@@ -29,7 +29,7 @@ class FavoritesScreen extends Component {
  
   render() {
     const { searchText, rating } = this.state;
-    const { favorites, handleUnfavorite } = this.props.screenProps;
+    const { position, favorites, handleUnfavorite } = this.props.screenProps;
 
     const searchData = favorites.filter(item => {
       const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
@@ -53,7 +53,13 @@ class FavoritesScreen extends Component {
           data={searchData}
           keyExtractor={item => item.id}
           renderItem={({ item }) => 
-            <Favorite item={item} favorites={favorites} handleUnfavorite={handleUnfavorite}/>
+            <Favorite 
+              item={item}
+              position={position}
+              favorites={favorites}
+              handleUnfavorite={handleUnfavorite}
+              
+              />
           }
           ItemSeparatorComponent={() => <View style={styles.separator} />}
         />

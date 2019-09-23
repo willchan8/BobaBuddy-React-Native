@@ -27,6 +27,8 @@ export default class App extends Component {
           position: position,
           positionLoading: false,
         });
+
+        console.log(position);
       },
       (error) => alert(error),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 60000 }
@@ -49,6 +51,7 @@ export default class App extends Component {
     axios.get('https://bobabuddy.herokuapp.com/favorites')
     .then((response) => {
       this.setState({ favorites: response.data })
+      // console.log(response.data);
     })
     .catch(error => alert(error));
   }
