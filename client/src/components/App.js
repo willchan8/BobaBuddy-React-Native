@@ -10,6 +10,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       position: null,
+      positionLoading: true,
       results: [],
       favorites: []
     }
@@ -22,7 +23,10 @@ export default class App extends Component {
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        this.setState({position});
+        this.setState({ 
+          position: position,
+          positionLoading: false,
+        });
         console.log(this.state.position.coords);
       },
       (error) => alert(error),

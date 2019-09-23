@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { ImageBackground, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import HomeButtons from './HomeButtons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import API_KEY from '../assets/API_KEY';
@@ -23,7 +24,6 @@ export default class Home extends Component {
       let lat = this.props.screenProps.position.coords.latitude;
       let lng = this.props.screenProps.position.coords.longitude;
       let location = lat + ',' + lng;
-      // let location = { latitude: lat, longitude: lng };
       
       const config = {
         headers: {
@@ -35,7 +35,7 @@ export default class Home extends Component {
         }
       }
 
-      // axios.post('https://still-basin-89962.herokuapp.com/', { location: location })
+      // axios.post('https://bobabuddy.herokuapp.com/', { location: location })
       // .then((response) => {
       //   this.props.screenProps.saveResponse(response.data);
       // })
@@ -57,36 +57,26 @@ export default class Home extends Component {
   }
     
   render() {
+    const { position, positionLoading, favorites, saveResponse, handleFavorite, handleUnfavorite } = this.props.screenProps;
     return (
-      <ImageBackground
-        source={require('../assets/boba.jpg')}
-        style={{width: '100%', height: '100%'}}
-      >
+      <ImageBackground style={styles.background} source={require('../assets/boba.png')}>
         <View style={styles.container}>
           <Text style={styles.title}>BOBA BUDDY</Text>
-          <View style={styles.buttonsRow}>
-            <TouchableOpacity
-              style={styles.button}
-              activeOpacity={0.4}
-              onPress={this.showResults.bind(this)}
-            >
-              <View style={styles.buttonContainer}>
-                <Icon name="search" size={20} />
-                <Text style={styles.buttonText}>Find Boba!</Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.button}
-              activeOpacity={0.4}
-              onPress={this.openFavorites.bind(this)}
-            >
-              <View style={styles.buttonContainer}>
-                <Icon name="heart" size={20} color="red" />
-                <Text style={styles.buttonText}>Favorites</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+          {
+            positionLoading ? 
+            <View style={{top: '13.5%'}}>
+              <ActivityIndicator size="large" color="#0000ff" />
+              <Text>Retrieving Location...</Text>
+            </View> :
+            <HomeButtons 
+              position={position}
+              favorites={favorites}
+              saveResponse={saveResponse}
+              handleFavorite={handleFavorite}
+              handleUnfavorite={handleUnfavorite}
+              navigation={this.props.navigation}
+            />
+          }
         </View>
       </ImageBackground>
     );
@@ -94,6 +84,11 @@ export default class Home extends Component {
 }
 
 const styles = StyleSheet.create({
+  background: {
+    width: '100%',
+    height: '100%',
+  },
+
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -113,27 +108,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
-
-  buttonsRow: {
-    flexDirection: 'row',
-  },
-
-  buttonContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  button: {
-    top: '27%',
-    borderRadius: 7,
-    padding: 8,
-    margin: 20,
-    backgroundColor: 'rgb(37, 160, 205)',
-  },
-
-  buttonText: {
-    fontSize: 20,
-    color: 'white',
-    marginLeft: 5
-  }
 });
