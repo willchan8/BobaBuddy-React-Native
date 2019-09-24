@@ -1,62 +1,15 @@
 import React, { Component } from 'react';
 import { ImageBackground, StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import HomeButtons from './HomeButtons';
-import axios from 'axios';
-import API_KEY from '../assets/API_KEY';
 
 export default class Home extends Component {
   constructor(props) {
-    super(props)
-  }
-
-  openFavorites() {
-    this.props.navigation.navigate(
-      'FavoritesScreen', {
-      favorites: this.props.screenProps.favorites,
-      handleUnfavorite: this.props.screenProps.handleUnfavorite
-      }
-    )
-  }
-
-  showResults() {
-    if (this.props.screenProps.position) {
-      let lat = this.props.screenProps.position.coords.latitude;
-      let lng = this.props.screenProps.position.coords.longitude;
-      let location = lat + ',' + lng;
-      
-      const config = {
-        headers: {
-          'Authorization': `Bearer ${API_KEY}`
-        },
-        params: {
-          term: 'boba',
-          location: location,
-        }
-      }
-
-      // axios.post('https://bobabuddy.herokuapp.com/', { location: location })
-      // .then((response) => {
-      //   this.props.screenProps.saveResponse(response.data);
-      // })
-      axios.get('https://api.yelp.com/v3/businesses/search', config)
-      .then((response) => {
-        this.props.screenProps.saveResponse(response);
-      })
-      .then(() => {
-        this.props.navigation.navigate(
-          'TabNavigator', {
-          results: this.props.screenProps.results,
-          favorites: this.props.screenProps.favorites,
-          handleFavorite: this.props.screenProps.handleFavorite
-          }
-        )
-      })
-      .catch(error => console.log(error));
-    }
+    super(props);
   }
     
   render() {
     const { position, positionLoading, favorites, saveResponse, handleFavorite, handleUnfavorite } = this.props.screenProps;
+    const { navigation } = this.props;
     return (
       <ImageBackground style={styles.background} source={require('../assets/boba.png')}>
         <View style={styles.container}>
@@ -73,7 +26,7 @@ export default class Home extends Component {
               saveResponse={saveResponse}
               handleFavorite={handleFavorite}
               handleUnfavorite={handleUnfavorite}
-              navigation={this.props.navigation}
+              navigation={navigation}
             />
           }
         </View>

@@ -6,7 +6,10 @@ import API_KEY from '../assets/API_KEY';
 
 export default class HomeButtons extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+
+    this.openFavorites = this.openFavorites.bind(this);
+    this.showResults = this.showResults.bind(this);
   }
 
   openFavorites() {
@@ -34,10 +37,6 @@ export default class HomeButtons extends Component {
         }
       }
 
-      // axios.post('https://bobabuddy.herokuapp.com/', { location: location })
-      // .then((response) => {
-      //   this.props.saveResponse(response.data);
-      // })
       axios.get('https://api.yelp.com/v3/businesses/search', config)
       .then((response) => {
         this.props.saveResponse(response);

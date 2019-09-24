@@ -5,9 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 class Result extends Component {
   constructor(props) {
     super(props)
-    this.state = {
 
-    }
     this.openNavigation = this.openNavigation.bind(this);
     this.saveResult = this.saveResult.bind(this);
     this.handlePress = this.handlePress.bind(this);
