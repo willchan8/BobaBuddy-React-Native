@@ -6,7 +6,9 @@ Check it out at: https://expo.io/@willchan8/boba-buddy
 
 Technologies used: React-Native, React-Navigation, Yelp API, GraphQL, Expo, Express, Node.js, MongoDB Atlas, Mongoose, and Heroku
 
-### Running the app
+![Home Screen](screenshots/1-HomeScreen)
+
+## Running the app
 
 - Run `yarn` or `npm install`
 - Run [`expo start`](https://docs.expo.io/versions/latest/workflow/expo-cli/), try it out.
