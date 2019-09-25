@@ -30,7 +30,7 @@ class ResultsScreen extends Component {
  
   render() {
     const { searchText, rating } = this.state;
-    const { favorites, results, sortBy, handleFavorite, handleUnfavorite, handleSort } = this.props.screenProps;
+    const { favorites, results, sortResultsBy, handleFavorite, handleUnfavorite, handleSort } = this.props.screenProps;
 
     const searchData = results.filter(item => {
       const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
@@ -48,7 +48,7 @@ class ResultsScreen extends Component {
             platform="ios"
           />
         </View>
-        <SortButtons sortBy={sortBy} handleSort={handleSort} screen={'results'} />
+        <SortButtons sortBy={sortResultsBy} handleSort={handleSort} screen={'results'} />
         {/* <FilterSlider filterRating={this.filterRating} rating={rating} /> */}
         <FlatList
           style={styles.list}

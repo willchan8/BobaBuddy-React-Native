@@ -13,7 +13,8 @@ export default class App extends Component {
       positionLoading: true,
       results: [],
       favorites: [],
-      sortBy: null,
+      sortResultsBy: null,
+      sortFavoritesBy: null,
     }
     this.saveResponse = this.saveResponse.bind(this);
     this.getFavorites = this.getFavorites.bind(this);
@@ -68,55 +69,58 @@ export default class App extends Component {
   }
 
   handleSort(sortCriteria, screen) {
-    
-    this.setState({
-      sortBy: sortCriteria
-    }, () => {
-      const { results, favorites, sortBy } = this.state;
-      const sortedList = (screen === 'results') ? [...results] : [...favorites];
-      
-      switch (sortBy) {
+    const { results, favorites } = this.state;
+    const listCopy = (screen === 'results') ? [...results] : [...favorites];
+
+    const sortLogic = () => {      
+      switch (sortCriteria) {
         case 'A-Z':
-          sortedList.sort((a, b) => {
+          listCopy.sort((a, b) => {
             if (a.name.toLowerCase() < b.name.toLowerCase()) { return -1 }
             if (a.name.toLowerCase() > b.name.toLowerCase()) { return 1 }
             return 0;
           });
           break;
         case 'Rating':
-          sortedList.sort((a, b) => {
+          listCopy.sort((a, b) => {
             if (a.rating > b.rating) { return -1 }
             if (a.rating < b.rating) { return 1 }
             return 0;
           });
           break;
         case 'Reviews':
-          sortedList.sort((a, b) => {
+          listCopy.sort((a, b) => {
             if (a.review_count > b.review_count) { return -1 }
             if (a.review_count < b.review_count) { return 1 }
             return 0;
           });
           break;
         case 'Distance':
-          sortedList.sort((a, b) => {
+          listCopy.sort((a, b) => {
             if (a.distance < b.distance) { return -1 }
             if (a.distance > b.distance) { return 1 }
             return 0;
           });
           break;
       }
-
-      if (screen === 'results') {
-        this.setState({
-          results: sortedList
-        });
-      } else {
-        this.setState({
-          favorites: sortedList
-        });
-      }
-    })
+    };
+    
+    if (screen === 'results') {
+      this.setState({ sortResultsBy: sortCriteria }, 
+      () => {
+        sortLogic();
+        this.setState({ results: listCopy });
+      });
+    } else {
+      this.setState({ sortFavoritesBy: sortCriteria }, 
+      () => {
+        sortLogic();
+        this.setState({ favorites: listCopy });
+      });
+    }
   }
+
+
 
   render() {
     return (

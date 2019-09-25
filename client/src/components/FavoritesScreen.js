@@ -30,7 +30,7 @@ class FavoritesScreen extends Component {
  
   render() {
     const { searchText, rating } = this.state;
-    const { position, favorites, sortBy, handleUnfavorite, handleSort } = this.props.screenProps;
+    const { position, favorites, sortFavoritesBy, handleUnfavorite, handleSort } = this.props.screenProps;
 
     const searchData = favorites.filter(item => {
       const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
@@ -48,7 +48,7 @@ class FavoritesScreen extends Component {
             platform="ios"
           />
         </View>
-        <SortButtons sortBy={sortBy} handleSort={handleSort} screen={'favorites'} />
+        <SortButtons sortBy={sortFavoritesBy} handleSort={handleSort} screen={'favorites'} />
         {/* <FilterSlider filterRating={this.filterRating} rating={rating} /> */}
         <FlatList
           style={styles.list}
