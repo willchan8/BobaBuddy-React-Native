@@ -16,7 +16,7 @@ export default class Home extends Component {
   toggleSwitch() {
     this.setState(prevState => ({
       open_now: !prevState.open_now
-    }), () => console.log(this.state.open_now));
+    }));
   }
     
   render() {
@@ -43,8 +43,8 @@ export default class Home extends Component {
               open_now={open_now}
             />
           }
-          <View style={{position: 'absolute', flexDirection: 'row', alignItems: 'center', bottom: '14%'}}>
-            <Text style={{fontSize: 18, fontWeight: '500', textShadowColor: 'rgba(0, 0, 0, 0.75)'}}>Open Now:  </Text>
+          <View style={styles.switchContainer}>
+            <Text style={styles.switch}>Open Now:  </Text>
             <Switch
               onValueChange = {this.toggleSwitch}
               value={open_now}
@@ -81,5 +81,18 @@ const styles = StyleSheet.create({
     textShadowRadius: 8,
     textAlign: 'center',
     margin: 10,
+  },
+
+  switchContainer: {
+    position: 'absolute',
+    flexDirection: 'row',
+    alignItems: 'center',
+    bottom: '14%',
+  },
+
+  switch: {
+    fontSize: 18,
+    fontWeight: '500',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
   },
 });
