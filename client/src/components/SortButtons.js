@@ -7,7 +7,7 @@ export default class SortButtons extends Component {
   }
     
   render() {
-    const { sortBy, handleSort } = this.props;
+    const { sortBy, handleSort, screen } = this.props;
     return (
       <View style={styles.buttonsRow}>
         <Text style={{fontSize: 16}}>Sort By:</Text>
@@ -16,7 +16,7 @@ export default class SortButtons extends Component {
           style={sortBy === 'A-Z' ? styles.buttonSelect : styles.button}
           activeOpacity={1}
           underlayColor='gray'
-          onPress={() => handleSort('A-Z')}
+          onPress={() => handleSort('A-Z', screen)}
         >
           <View style={styles.buttonContainer}>
             <Text style={sortBy === 'A-Z' ? styles.buttonTextSelect : styles.buttonText}>A-Z</Text>
@@ -27,7 +27,7 @@ export default class SortButtons extends Component {
           style={sortBy === 'Rating' ? styles.buttonSelect : styles.button}
           activeOpacity={1}
           underlayColor='gray'
-          onPress={() => handleSort('Rating')}
+          onPress={() => handleSort('Rating', screen)}
         >
           <View style={styles.buttonContainer}>
             <Text style={sortBy === 'Rating' ? styles.buttonTextSelect : styles.buttonText}>Rating</Text>
@@ -38,7 +38,7 @@ export default class SortButtons extends Component {
           style={sortBy === 'Reviews' ? styles.buttonSelect : styles.button}
           activeOpacity={1}
           underlayColor='gray'
-          onPress={() => handleSort('Reviews')}
+          onPress={() => handleSort('Reviews', screen)}
         >
           <View style={styles.buttonContainer}>
             <Text style={sortBy === 'Reviews' ? styles.buttonTextSelect : styles.buttonText}>Review Count</Text>
@@ -49,7 +49,7 @@ export default class SortButtons extends Component {
           style={sortBy === 'Distance' ? styles.buttonSelect : styles.button}
           activeOpacity={1}
           underlayColor='gray'
-          onPress={() => handleSort('Distance')}
+          onPress={() => handleSort('Distance', screen)}
         >
           <View style={styles.buttonContainer}>
             <Text style={sortBy === 'Distance' ? styles.buttonTextSelect : styles.buttonText}>Distance</Text>
@@ -67,9 +67,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 8, 
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(0,0,0,0.1)',
   },
 
   buttonContainer: {

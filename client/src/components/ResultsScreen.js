@@ -48,7 +48,8 @@ class ResultsScreen extends Component {
             platform="ios"
           />
         </View>
-        <SortButtons sortBy={sortBy} handleSort={handleSort} />
+        <SortButtons sortBy={sortBy} handleSort={handleSort} screen={'results'} />
+        {/* <FilterSlider filterRating={this.filterRating} rating={rating} /> */}
         <FlatList
           style={styles.list}
           data={searchData}
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
   },
 
   list: {
-    marginBottom: 105,
+    marginBottom: 113,
   },
 
   separator: {

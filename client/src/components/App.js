@@ -67,14 +67,13 @@ export default class App extends Component {
     .catch(error => alert(error));
   }
 
-  handleSort(sortCriteria) {
+  handleSort(sortCriteria, screen) {
     
     this.setState({
       sortBy: sortCriteria
     }, () => {
-      
       const { results, favorites, sortBy } = this.state;
-      const sortedList = [...results];
+      const sortedList = (screen === 'results') ? [...results] : [...favorites];
       
       switch (sortBy) {
         case 'A-Z':
@@ -107,9 +106,15 @@ export default class App extends Component {
           break;
       }
 
-      this.setState({
-        results: sortedList
-      });
+      if (screen === 'results') {
+        this.setState({
+          results: sortedList
+        });
+      } else {
+        this.setState({
+          favorites: sortedList
+        });
+      }
     })
   }
 
