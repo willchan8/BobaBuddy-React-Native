@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
-import { ImageBackground, StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View, ActivityIndicator, Switch } from 'react-native';
 import HomeButtons from './HomeButtons';
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      open_now: false,
+    }
+
+    this.toggleSwitch = this.toggleSwitch.bind(this);
+  }
+
+  toggleSwitch() {
+    this.setState(prevState => ({
+      open_now: !prevState.open_now
+    }), () => console.log(this.state.open_now));
   }
     
   render() {
     const { position, positionLoading, favorites, saveResponse, handleFavorite, handleUnfavorite } = this.props.screenProps;
     const { navigation } = this.props;
+    const { open_now } = this.state;
     return (
       <ImageBackground style={styles.background} source={require('../assets/boba.png')}>
         <View style={styles.container}>
@@ -27,8 +40,17 @@ export default class Home extends Component {
               handleFavorite={handleFavorite}
               handleUnfavorite={handleUnfavorite}
               navigation={navigation}
+              open_now={open_now}
             />
           }
+          <View style={{position: 'absolute', flexDirection: 'row', alignItems: 'center', bottom: '14%'}}>
+            <Text style={{fontSize: 18, fontWeight: '500', textShadowColor: 'rgba(0, 0, 0, 0.75)'}}>Open Now:  </Text>
+            <Switch
+              onValueChange = {this.toggleSwitch}
+              value={open_now}
+              trackColor={{false: 'rgba(0,0,0,0.2)'}}
+            />
+          </View>
         </View>
       </ImageBackground>
     );

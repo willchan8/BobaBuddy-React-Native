@@ -34,6 +34,7 @@ export default class HomeButtons extends Component {
         params: {
           term: 'boba',
           location: location,
+          open_now: this.props.open_now,
         }
       }
 
