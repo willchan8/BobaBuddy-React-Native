@@ -13,11 +13,13 @@ export default class App extends Component {
       positionLoading: true,
       results: [],
       favorites: [],
+      sortBy: null,
     }
     this.saveResponse = this.saveResponse.bind(this);
     this.getFavorites = this.getFavorites.bind(this);
     this.handleFavorite = this.handleFavorite.bind(this);
     this.handleUnfavorite = this.handleUnfavorite.bind(this);
+    this.handleSort = this.handleSort.bind(this);
   }
 
   componentDidMount() {
@@ -65,6 +67,52 @@ export default class App extends Component {
     .catch(error => alert(error));
   }
 
+  handleSort(sortCriteria) {
+    
+    this.setState({
+      sortBy: sortCriteria
+    }, () => {
+      
+      const { results, favorites, sortBy } = this.state;
+      const sortedList = [...results];
+      
+      switch (sortBy) {
+        case 'A-Z':
+          sortedList.sort((a, b) => {
+            if (a.name.toLowerCase() < b.name.toLowerCase()) { return -1 }
+            if (a.name.toLowerCase() > b.name.toLowerCase()) { return 1 }
+            return 0;
+          });
+          break;
+        case 'Rating':
+          sortedList.sort((a, b) => {
+            if (a.rating > b.rating) { return -1 }
+            if (a.rating < b.rating) { return 1 }
+            return 0;
+          });
+          break;
+        case 'Reviews':
+          sortedList.sort((a, b) => {
+            if (a.review_count > b.review_count) { return -1 }
+            if (a.review_count < b.review_count) { return 1 }
+            return 0;
+          });
+          break;
+        case 'Distance':
+          sortedList.sort((a, b) => {
+            if (a.distance < b.distance) { return -1 }
+            if (a.distance > b.distance) { return 1 }
+            return 0;
+          });
+          break;
+      }
+
+      this.setState({
+        results: sortedList
+      });
+    })
+  }
+
   render() {
     return (
       <AppContainer 
@@ -73,6 +121,7 @@ export default class App extends Component {
           saveResponse: this.saveResponse,
           handleFavorite: this.handleFavorite,
           handleUnfavorite: this.handleUnfavorite,
+          handleSort: this.handleSort,
         }}
       />
     )

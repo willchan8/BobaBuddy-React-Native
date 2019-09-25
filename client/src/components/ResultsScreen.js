@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import Result from './Result';
 import FilterSlider from './FilterSlider';
+import SortButtons from './SortButtons';
 
 class ResultsScreen extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class ResultsScreen extends Component {
  
   render() {
     const { searchText, rating } = this.state;
-    const { favorites, handleFavorite, handleUnfavorite, results } = this.props.screenProps;
+    const { favorites, results, sortBy, handleFavorite, handleUnfavorite, handleSort } = this.props.screenProps;
 
     const searchData = results.filter(item => {
       const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
@@ -47,7 +48,7 @@ class ResultsScreen extends Component {
             platform="ios"
           />
         </View>
-        <FilterSlider filterRating={this.filterRating} rating={rating} />
+        <SortButtons sortBy={sortBy} handleSort={handleSort} />
         <FlatList
           style={styles.list}
           data={searchData}

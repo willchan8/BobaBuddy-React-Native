@@ -61,7 +61,7 @@ export default class HomeButtons extends Component {
         <TouchableOpacity
           style={styles.button}
           activeOpacity={0.4}
-          onPress={this.showResults.bind(this)}
+          onPress={this.showResults}
         >
           <View style={styles.buttonContainer}>
             <Icon name="search" size={20} />
@@ -72,7 +72,7 @@ export default class HomeButtons extends Component {
         <TouchableOpacity
           style={styles.button}
           activeOpacity={0.4}
-          onPress={this.openFavorites.bind(this)}
+          onPress={this.openFavorites}
         >
           <View style={styles.buttonContainer}>
             <Icon name="heart" size={20} color="red" />
