@@ -72,7 +72,7 @@ export default class App extends Component {
     const { results, favorites } = this.state;
     const listCopy = (screen === 'results') ? [...results] : [...favorites];
 
-    const sortLogic = () => {      
+    const sortBy = () => {      
       switch (sortCriteria) {
         case 'A-Z':
           listCopy.sort((a, b) => {
@@ -108,19 +108,17 @@ export default class App extends Component {
     if (screen === 'results') {
       this.setState({ sortResultsBy: sortCriteria }, 
       () => {
-        sortLogic();
+        sortBy();
         this.setState({ results: listCopy });
       });
     } else {
       this.setState({ sortFavoritesBy: sortCriteria }, 
       () => {
-        sortLogic();
+        sortBy();
         this.setState({ favorites: listCopy });
       });
     }
   }
-
-
 
   render() {
     return (
