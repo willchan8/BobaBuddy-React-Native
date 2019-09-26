@@ -8,10 +8,13 @@ Technologies used: React-Native, React-Navigation, Yelp API, GraphQL, Expo, Expr
 
 <img src="screenshots/1-HomeScreen.png" alt="Home Screen" width="250">
 <img src="screenshots/2-ResultsScreen.png" alt="Results Screen" width="250">
-<img src="screenshots/3-MapScreen.png" alt="Map Screen" width="250">
-<img src="screenshots/4-Navigation.png" alt="Navigation" width="250">
-<img src="screenshots/5-FavoritesScreen.png" alt="Favorites Screen" width="250">
-<img src="screenshots/6-AlertOptions.png" alt="Alert Options" width="250">
+<img src="screenshots/3-AlertOptions.png" alt="Map Screen" width="250">
+<img src="screenshots/4-MapScreen.png" alt="Navigation" width="250">
+<img src="screenshots/5-MapAlert.png" alt="Favorites Screen" width="250">
+<img src="screenshots/6-Navigator.png" alt="Alert Options" width="250">
+<img src="screenshots/7-FavoritesScreen.png" alt="Navigation" width="250">
+<img src="screenshots/8-Sort.png" alt="Favorites Screen" width="250">
+<img src="screenshots/9-Filter.png" alt="Alert Options" width="250">
 
 ## Running the app
 
