@@ -20,11 +20,12 @@ export default class MapScreen extends Component {
           }}
           style={{    
             flexDirection: 'row',
+            alignItems: 'center'
           }}
         >
           <Image 
             source={{uri: item.image_url}}
-            style={{width: 70, height: 70, margin: 8}} 
+            style={{width: 70, height: 70, borderRadius: 4, marginRight: 10}} 
           />
           <View style={{flex: 1, justifyContent: 'center'}}>
             <Text style={{fontWeight: 'bold', fontSize: 18}}>{item.name}</Text>
@@ -87,6 +88,7 @@ export default class MapScreen extends Component {
     )
   }
 }
+
 const styles = {
   container: {
     flex: 1

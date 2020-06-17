@@ -42,9 +42,9 @@ export default class HomeButtons extends Component {
       .then(() => {
         this.props.navigation.navigate(
           'TabNavigator', {
-          results: this.props.results,
-          favorites: this.props.favorites,
-          handleFavorite: this.props.handleFavorite
+            results: this.props.results,
+            favorites: this.props.favorites,
+            handleFavorite: this.props.handleFavorite
           }
         )
       })
