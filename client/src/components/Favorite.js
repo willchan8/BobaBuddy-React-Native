@@ -4,15 +4,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
  
 class Favorite extends Component {
   constructor(props) {
-    super(props)
-
-    this.openNavigation = this.openNavigation.bind(this);
-    this.unfavoriteResult = this.unfavoriteResult.bind(this);
-    this.handlePress = this.handlePress.bind(this);
-    this.calculateDistance = this.calculateDistance.bind(this);
+    super(props);
   }
 
-  openNavigation() {
+  openNavigation = () => {
     const { item } = this.props;
     
     const lat = item.coordinates.latitude;
@@ -29,12 +24,12 @@ class Favorite extends Component {
     Linking.openURL(url); 
   }
 
-  unfavoriteResult() {
+  unfavoriteResult = () => {
     const { item, handleUnfavorite } = this.props;
     handleUnfavorite(item);
   }
 
-  handlePress() {
+  handlePress = () => {
     const { item } = this.props;
 
     Alert.alert(
@@ -54,7 +49,7 @@ class Favorite extends Component {
     );
   }
 
-  calculateDistance(myPosition, shopPosition) {
+  calculateDistance = (myPosition, shopPosition) => {
     let lat1 = myPosition.latitude;
     let lng1 = myPosition.longitude;
     let lat2 = shopPosition.latitude;

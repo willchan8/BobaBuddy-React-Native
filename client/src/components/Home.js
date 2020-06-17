@@ -9,11 +9,9 @@ export default class Home extends Component {
     this.state = {
       open_now: false,
     }
-
-    this.toggleSwitch = this.toggleSwitch.bind(this);
   }
 
-  toggleSwitch() {
+  toggleSwitch = () => {
     this.setState(prevState => ({
       open_now: !prevState.open_now
     }));

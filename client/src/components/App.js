@@ -16,11 +16,6 @@ export default class App extends Component {
       sortResultsBy: null,
       sortFavoritesBy: null,
     }
-    this.saveResponse = this.saveResponse.bind(this);
-    this.getFavorites = this.getFavorites.bind(this);
-    this.handleFavorite = this.handleFavorite.bind(this);
-    this.handleUnfavorite = this.handleUnfavorite.bind(this);
-    this.handleSort = this.handleSort.bind(this);
   }
 
   componentDidMount() {
@@ -38,13 +33,13 @@ export default class App extends Component {
     this.getFavorites();
   }
 
-  saveResponse(response) {
+  saveResponse = (response) => {
     this.setState({
       results: response.data.businesses
     })
   }
 
-  getFavorites() {
+  getFavorites = () => {
     axios.get('https://bobabuddy.herokuapp.com/favorites')
     .then((response) => {
       this.setState({ favorites: response.data })
@@ -52,7 +47,7 @@ export default class App extends Component {
     .catch(error => alert(error));
   }
 
-  handleFavorite(item) {
+  handleFavorite = (item) => {
     axios.post('https://bobabuddy.herokuapp.com/favorites', { data: item })
     .then(() => {
       this.getFavorites();
@@ -60,7 +55,7 @@ export default class App extends Component {
     .catch(error => alert(error));
   }
 
-  handleUnfavorite(item) {
+  handleUnfavorite = (item) => {
     axios.delete('https://bobabuddy.herokuapp.com/favorites', { data: item } )
     .then(() => {
       this.getFavorites();
@@ -68,7 +63,7 @@ export default class App extends Component {
     .catch(error => alert(error));
   }
 
-  handleSort(sortCriteria, screen) {
+  handleSort = (sortCriteria, screen) => {
     const { results, favorites } = this.state;
     const listCopy = (screen === 'results') ? [...results] : [...favorites];
 

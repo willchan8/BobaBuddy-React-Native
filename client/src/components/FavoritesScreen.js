@@ -12,17 +12,15 @@ class FavoritesScreen extends Component {
       searchText: '',
       rating: 3,
     }
-    this.handleSearch = this.handleSearch.bind(this);
-    this.filterRating = this.filterRating.bind(this);
   }
 
-  handleSearch(text) {
+  handleSearch = (text) => {
     this.setState({
       searchText: text,
     });
   }
 
-  filterRating(rating) {
+  filterRating = (rating) => {
     this.setState({
       rating: rating
     });

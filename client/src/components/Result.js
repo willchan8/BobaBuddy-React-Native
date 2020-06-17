@@ -5,13 +5,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 class Result extends Component {
   constructor(props) {
     super(props)
-
-    this.openNavigation = this.openNavigation.bind(this);
-    this.saveResult = this.saveResult.bind(this);
-    this.handlePress = this.handlePress.bind(this);
   }
 
-  openNavigation() {
+  openNavigation = () => {
     const { item } = this.props;
     
     const lat = item.coordinates.latitude;
@@ -28,17 +24,17 @@ class Result extends Component {
     Linking.openURL(url); 
   }
 
-  saveResult() {
+  saveResult = () => {
     const { item, handleFavorite } = this.props;
     handleFavorite(item);
   }
 
-  unsaveResult() {
+  unsaveResult = () => {
     const { item, handleUnfavorite } = this.props;
     handleUnfavorite(item);
   }
 
-  handlePress() {
+  handlePress = () => {
     const { item, favorites } = this.props;
     const favorited = favorites.some( favorite => favorite.id === item.id );
 

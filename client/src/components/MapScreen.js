@@ -5,10 +5,9 @@ import MapView, { Marker, Callout } from 'react-native-maps';
 export default class MapScreen extends Component {
   constructor(props) {
     super(props);
-    this.handlePress = this.handlePress.bind(this);
   }
 
-  renderMarkers() {
+  renderMarkers = () => {
     return this.props.screenProps.results.map((item) => (
       <Marker 
         key={item.id} 
@@ -38,7 +37,7 @@ export default class MapScreen extends Component {
     ))
   }
 
-  openNavigation(item) {
+  openNavigation = (item) => {
     const lat = item.coordinates.latitude;
     const lng = item.coordinates.longitude;
 
@@ -53,7 +52,7 @@ export default class MapScreen extends Component {
     Linking.openURL(url); 
   }
 
-  handlePress(item) {
+  handlePress = (item) => {
     Alert.alert(
       item.name,
       'What would you like to do?',

@@ -7,12 +7,9 @@ import API_KEY from '../assets/API_KEY';
 export default class HomeButtons extends Component {
   constructor(props) {
     super(props);
-
-    this.openFavorites = this.openFavorites.bind(this);
-    this.showResults = this.showResults.bind(this);
   }
 
-  openFavorites() {
+  openFavorites = () => {
     this.props.navigation.navigate(
       'FavoritesScreen', {
       favorites: this.props.favorites,
@@ -21,7 +18,7 @@ export default class HomeButtons extends Component {
     )
   }
 
-  showResults() {
+  showResults = () => {
     if (this.props.position) {
       let lat = this.props.position.coords.latitude;
       let lng = this.props.position.coords.longitude;
