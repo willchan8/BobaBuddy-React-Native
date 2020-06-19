@@ -29,7 +29,7 @@ class Result extends Component {
     handleFavorite(item);
   }
 
-  unsaveResult = () => {
+  unfavoriteResult = () => {
     const { item, handleUnfavorite } = this.props;
     handleUnfavorite(item);
   }
@@ -43,7 +43,7 @@ class Result extends Component {
       'What would you like to do?',
       [
         {text: 'Open Navigation', onPress: () => this.openNavigation()},
-        {text: favorited ? 'Remove from Favorites' : 'Add to Favorites', onPress: favorited ? () => this.unsaveResult() : () => this.saveResult()},
+        {text: favorited ? 'Remove from Favorites' : 'Add to Favorites', onPress: favorited ? () => this.unfavoriteResult() : () => this.saveResult()},
         {
           text: 'Cancel',
           onPress: () => console.log('Cancel Pressed'),

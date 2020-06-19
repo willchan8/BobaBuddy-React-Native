@@ -18,7 +18,7 @@ export default class Home extends Component {
   }
     
   render() {
-    const { position, positionLoading, favorites, saveResponse, handleFavorite, handleUnfavorite } = this.props.screenProps;
+    const { position, positionLoading, results, favorites, saveResponse, handleFavorite, handleUnfavorite } = this.props.screenProps;
     const { navigation } = this.props;
     const { open_now } = this.state;
     return (
@@ -33,6 +33,7 @@ export default class Home extends Component {
             </View> :
             <HomeButtons 
               position={position}
+              results={results}
               favorites={favorites}
               saveResponse={saveResponse}
               handleFavorite={handleFavorite}

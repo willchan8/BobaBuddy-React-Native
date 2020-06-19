@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import API_KEY from '../assets/API_KEY';
+import { createIconSetFromFontello } from 'react-native-vector-icons';
 
 export default class HomeButtons extends Component {
   constructor(props) {
@@ -12,14 +13,14 @@ export default class HomeButtons extends Component {
   openFavorites = () => {
     this.props.navigation.navigate(
       'FavoritesScreen', {
-      favorites: this.props.favorites,
-      handleUnfavorite: this.props.handleUnfavorite
+        favorites: this.props.favorites,
+        handleUnfavorite: this.props.handleUnfavorite
       }
     )
   }
 
   showResults = () => {
-    if (this.props.position) {
+    if (this.props.position && !this.props.results.length) {
       let lat = this.props.position.coords.latitude;
       let lng = this.props.position.coords.longitude;
       let location = lat + ',' + lng;
@@ -49,6 +50,14 @@ export default class HomeButtons extends Component {
         )
       })
       .catch(error => console.log(error));
+    } else {
+      this.props.navigation.navigate(
+        'TabNavigator', {
+          results: this.props.results,
+          favorites: this.props.favorites,
+          handleFavorite: this.props.handleFavorite
+        }
+      )
     }
   }
     

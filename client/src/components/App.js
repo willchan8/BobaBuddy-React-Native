@@ -12,7 +12,9 @@ export default class App extends Component {
       position: null,
       positionLoading: true,
       results: [],
+      defaultResults: [],
       favorites: [],
+      defaultFavorites: [],
       sortResultsBy: null,
       sortFavoritesBy: null,
     }
@@ -35,14 +37,18 @@ export default class App extends Component {
 
   saveResponse = (response) => {
     this.setState({
-      results: response.data.businesses
+      results: response.data.businesses,
+      defaultResults: response.data.businesses,
     })
   }
 
   getFavorites = () => {
     axios.get('https://bobabuddy.herokuapp.com/favorites')
     .then((response) => {
-      this.setState({ favorites: response.data })
+      this.setState({ 
+        favorites: response.data,
+        defaultFavorites: response.data
+      })
     })
     .catch(error => alert(error));
   }
@@ -64,7 +70,7 @@ export default class App extends Component {
   }
 
   handleSort = (sortCriteria, screen) => {
-    const { results, favorites } = this.state;
+    const { results, defaultResults, favorites, defaultFavorites, sortResultsBy, sortFavoritesBy } = this.state;
     const listCopy = (screen === 'results') ? [...results] : [...favorites];
 
     const sortBy = () => {      
@@ -101,17 +107,31 @@ export default class App extends Component {
     };
     
     if (screen === 'results') {
-      this.setState({ sortResultsBy: sortCriteria }, 
-      () => {
-        sortBy();
-        this.setState({ results: listCopy });
-      });
+      if (sortResultsBy === sortCriteria) {
+        this.setState({ 
+          sortResultsBy: null,
+          results: defaultResults,
+        });
+      } else {
+        this.setState({ sortResultsBy: sortCriteria }, 
+        () => {
+          sortBy();
+          this.setState({ results: listCopy });
+        });
+      }
     } else {
-      this.setState({ sortFavoritesBy: sortCriteria }, 
-      () => {
-        sortBy();
-        this.setState({ favorites: listCopy });
-      });
+      if (sortFavoritesBy === sortCriteria) {
+        this.setState({ 
+          sortFavoritesBy: null,
+          favorites: defaultFavorites,
+        });
+      } else {
+        this.setState({ sortFavoritesBy: sortCriteria }, 
+        () => {
+          sortBy();
+          this.setState({ favorites: listCopy });
+        });
+      }
     }
   }
 
