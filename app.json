@@ -21,6 +21,9 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "description": ""
+    "description": "",
+    "ios": {
+      "bundleIdentifier": "com.willchan8.boba-buddy"
+    }
   }
 }
