@@ -1,29 +1,26 @@
 {
-  "name": "BobaBuddy",
-  "displayName": "BobaBuddy",
-  "expo": {
-    "name": "BobaBuddy",
-    "icon": "./icon.png",
-    "splash": {
-      "image": "./client/src/assets/boba.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#d5efec"
-    },
-    "slug": "boba-buddy",
-    "privacy": "unlisted",
-    "version": "1.0.0",
-    "entryPoint": "node_modules/expo/AppEntry.js",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "description": "",
-    "ios": {
-      "bundleIdentifier": "com.willchan8.boba-buddy"
-    }
-  }
+	"name": "BobaBuddy",
+	"displayName": "BobaBuddy",
+	"expo": {
+		"name": "BobaBuddy",
+		"icon": "./icon.png",
+		"splash": {
+			"image": "./client/src/assets/boba.png",
+			"resizeMode": "cover",
+			"backgroundColor": "#d5efec"
+		},
+		"slug": "boba-buddy",
+		"privacy": "unlisted",
+		"version": "1.0.0",
+		"entryPoint": "./client/src/index.js",
+		"platforms": ["ios", "android", "web"],
+		"assetBundlePatterns": ["**/*"],
+		"description": "",
+		"ios": {
+			"bundleIdentifier": "com.willchan8.boba-buddy"
+		},
+		"packagerOpts": {
+			"sourceExts": ["js", "json", "ts", "tsx", "jsx"]
+		}
+	}
 }
